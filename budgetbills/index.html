@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=202610051644">
+<link rel="stylesheet" href="../assets/css/site.css?v=202610051730">
 </head>
 <body class="theme-bb">
 <a class="skip" href="#content">Skip to content</a>
@@ -31,11 +31,20 @@
     <h1>BudgetBills</h1>
     <p class="lede lede--wide">A personal finance app centred on bill splitting, designed to remove the social friction of asking for money.</p>
     <dl class="facts">
-      <div><dt>Role</dt><dd>Sole product designer and researcher</dd></div>
+      <div><dt>Role</dt><dd>Product designer and researcher</dd></div>
       <div><dt>Responsibilities</dt><dd>User research, information architecture, wireframing, prototyping, usability testing</dd></div>
       <div><dt>Timeline</dt><dd>October to December 2024</dd></div>
       <div><dt>Tools</dt><dd>Google Forms, Mural, Balsamiq, Figma</dd></div>
     </dl>
+    <section class="glance" aria-labelledby="glance">
+      <h2 id="glance" class="glance-title">At a glance</h2>
+      <dl class="glance-list">
+        <div><dt>Problem</dt><dd>Splitting a bill is hard because someone has to ask, not because of the maths. 47.5% of 40 survey respondents named talking about money as the challenge.</dd></div>
+        <div><dt>What I did</dt><dd>A survey, three interviews and a competitor review. I cut the scope to four core areas, built an animated Figma prototype and ran moderated tests with three participants.</dd></div>
+        <div><dt>Result</dt><dd>Four of six tasks reached 3/3 success, but no one could add a card. A review showed the bill flow passed testing without solving the core problem.</dd></div>
+        <div><dt>Next</dt><dd>A concept redesign, not yet tested: split from any payment on a connected card, with the app writing the request and sending reminders. Each change has a metric to validate it.</dd></div>
+      </dl>
+    </section>
   </div>
 
   <div class="wrap cs-hero">
@@ -299,7 +308,15 @@
           </tbody>
         </table>
       </div>
-      <p class="after-table">For a live product, I'd also track split-request completion rate, time to repayment, and adoption of Split from transactions.</p>
+      <div class="biz">
+        <h3 class="flow-title">The business case</h3>
+        <ul class="biz-list">
+          <li><b>Business goal</b><p>Growth and everyday use. Every split request puts BudgetBills in front of friends who may not use it yet, and splitting straight from payments on a connected bank card gives people a reason to open the app after they pay.</p></li>
+          <li><b>Main metric</b><p>Share of split requests settled within seven days.</p><p>It only rises if asking stops feeling awkward, the problem the research found.</p></li>
+          <li><b>Warning metric</b><p>Declined requests and reminder opt-outs.</p><p>Automatic reminders mustn't turn into pressure. If these rise, the app is making asking harder, not easier.</p></li>
+        </ul>
+        <p class="after-table">Supporting metrics: time to repayment, use of Split from transactions, and sign-ups from friends who received a request.</p>
+      </div>
     </div>
   </section>
 

@@ -824,3 +824,22 @@ body.home-dark { background: #000; color: #e9ecf1; }
   .lede span { display: inline; }
   .hero .lede { font-size: clamp(17px, 4.6cqi, 19px); }
 }
+
+/* At a glance: the 30-second summary under each case study's facts */
+.glance { margin-top: clamp(28px, 4vw, 44px); background: var(--raised); border-radius: 16px; padding: clamp(20px, 2.6vw, 32px) clamp(20px, 2.8vw, 36px) clamp(22px, 2.8vw, 34px); }
+.glance-title { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: 0; margin-bottom: 18px; }
+.glance-title::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--brand, var(--pin)); }
+.glance-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px clamp(20px, 2.6vw, 36px); margin: 0; }
+.glance-list dt { font-size: 14px; font-weight: 700; color: var(--ink); }
+.glance-list dd { margin: 6px 0 0; font-size: 15.5px; line-height: 1.5; color: var(--ink-2); }
+@media (max-width: 900px) { .glance-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .glance-list { grid-template-columns: minmax(0, 1fr); } }
+
+/* The business case: goal, main metric and warning metric in Next iteration */
+.biz { margin-top: clamp(48px, 6vw, 72px); }
+.biz-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.biz-list li { background: var(--raised); border-radius: 14px; padding: 20px 22px 24px; }
+.biz-list b { display: block; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+.biz-list p { margin: 0; font-size: 16px; line-height: 1.5; color: #222a34; }
+.biz-list p + p { margin-top: 8px; color: var(--ink-2); }
+@media (max-width: 900px) { .biz-list { grid-template-columns: minmax(0, 1fr); } }

@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=202610051644">
+<link rel="stylesheet" href="../assets/css/site.css?v=202610051730">
 </head>
 <body class="theme-th">
 <a class="skip" href="#content">Skip to content</a>
@@ -31,11 +31,20 @@
     <h1>Thryve</h1>
     <p class="lede lede--wide">A gamified health app for users who don't habitually track their health, developed as a working React&nbsp;Native build.</p>
     <dl class="facts">
-      <div><dt>Role</dt><dd>Sole product designer, researcher and developer</dd></div>
+      <div><dt>Role</dt><dd>Product designer, researcher and developer</dd></div>
       <div><dt>Responsibilities</dt><dd>User research, brand identity, UX/UI design, 3D modelling, front-end development</dd></div>
       <div><dt>Timeline</dt><dd>2025, MSc final project</dd></div>
       <div><dt>Tools</dt><dd>Google Forms, Balsamiq, Figma, React Native, Appwrite, After Effects, Blender</dd></div>
     </dl>
+    <section class="glance" aria-labelledby="glance">
+      <h2 id="glance" class="glance-title">At a glance</h2>
+      <dl class="glance-list">
+        <div><dt>Problem</dt><dd>Health apps are built for people who are already motivated. In a survey of 30, 22 didn't track their health habitually, and 9 of those used no health tool at all.</dd></div>
+        <div><dt>What I did</dt><dd>Wrote brand principles first, then designed and built a working React&nbsp;Native app with real accounts, and a badge system around a robot character I modelled in Blender.</dd></div>
+        <div><dt>Result</dt><dd>Feedback called the first badges militaristic, so I rebuilt them, and the robot set was well received. My review of the final build found the core loop missing from the home screen.</dd></div>
+        <div><dt>Next</dt><dd>Daily quests on the home screen, one consistent XP value and a full badge grid, each with a metric. Not yet built or tested.</dd></div>
+      </dl>
+    </section>
   </div>
 
   <div class="wrap cs-hero">
@@ -298,7 +307,15 @@
         <li><b>Achievements</b><span>A grid of every badge, with locked badges showing what's needed to earn them.</span><em>Metric: success rate when finding the next badge's requirement</em></li>
         <li><b>Questions</b><span>A step counter (1 of 2), a smaller decorative ring, and a preview of the quests each answer unlocks.</span><em>Metric: question completion rate</em></li>
       </ol>
-      <p class="after-table">For a live product, I'd also track seven-day retention and quests completed per day.</p>
+      <div class="biz">
+        <h3 class="flow-title">The business case</h3>
+        <ul class="biz-list">
+          <li><b>Business goal</b><p>Keep the users other health apps lose. Competitors favour people who already track, yet 22 of 30 respondents didn't, and research links abandonment to fading motivation.</p></li>
+          <li><b>Main metric</b><p>Seven-day retention: new users still completing quests a week after sign-up.</p><p>It shows whether small daily goals keep less motivated users coming back.</p></li>
+          <li><b>Warning metric</b><p>Notification opt-outs and uninstalls after a missed day.</p><p>The manifesto promises progress without shame. If reminders feel like guilt, these numbers will show it first.</p></li>
+        </ul>
+        <p class="after-table">Supporting metric: quests completed per day.</p>
+      </div>
     </div>
   </section>
 
