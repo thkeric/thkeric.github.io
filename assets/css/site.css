@@ -296,14 +296,15 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
   grid-template-areas: "title title" "photo intro";
   column-gap: clamp(28px, 4.5vw, 64px);
   row-gap: clamp(28px, 4vw, 48px);
-  align-items: end;
+  align-items: start;
   padding-block: clamp(32px, 6vw, 72px) clamp(32px, 5vw, 56px);
   border-bottom: 1px solid var(--rule);
 }
 .about-head h1 { grid-area: title; font-size: clamp(48px, 8vw, 104px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.98; }
 .about-head .portrait { grid-area: photo; width: 100%; margin: 0; }
-.about-intro { grid-area: intro; padding-bottom: 4px; }
-.about-intro .lede { margin: 0; max-width: 30ch; font-size: clamp(20px, 2.3vw, 30px); line-height: 1.4; color: var(--ink); letter-spacing: -0.01em; }
+.about-intro { grid-area: intro; }
+.about-intro .lede span { display: block; }
+.about-intro .lede { margin: -0.28em 0 0; max-width: none; font-size: clamp(20px, 2.3vw, 30px); line-height: 1.4; color: var(--ink); letter-spacing: -0.01em; }
 .contact-links { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 20px; font-weight: 500; }
 .about { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 88px); padding-top: clamp(40px, 6vw, 72px); }
 .about h2 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 20px; }
@@ -331,6 +332,8 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
   .about { grid-template-columns: 1fr; }
   .about-head { grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "photo" "intro"; row-gap: 24px; }
   .about-head .portrait { width: min(260px, 70%); }
+  .about-intro .lede { margin-top: 0; text-wrap: balance; }
+  .about-intro .lede span { display: inline; }
   .badge-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
