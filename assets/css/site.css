@@ -109,6 +109,7 @@ strong { font-weight: 700; }
   text-decoration: none;
 }
 .project h2 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.03em; }
+.project h2 .year { font-size: 15px; font-weight: 500; letter-spacing: 0; color: var(--ink-3); margin-left: 12px; font-variant-numeric: tabular-nums; }
 .project > div:first-child { max-width: 460px; }
 .project .what { font-size: 20px; line-height: 1.45; color: var(--ink-2); margin: 14px 0 22px; }
 .project .what, .project .finding { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
