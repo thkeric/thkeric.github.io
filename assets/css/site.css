@@ -766,18 +766,14 @@ body.home-dark { background: #000; color: #e9ecf1; }
   .planet-body { transition: none; }
 }
 
-/* ---------- about: space version ---------- */
-.about-hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 64px); align-items: center; min-height: calc(100svh - 76px); padding-block: clamp(24px, 4vw, 48px); position: relative; z-index: 2; }
-.about-copy h1 { font-size: clamp(56px, 8.4vw, 120px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.95; color: #f1f3f5; }
-.about-copy .lede { margin: 28px 0 0; max-width: none; font-size: clamp(19px, 1.75vw, 24px); line-height: 1.45; color: #f1f3f5; letter-spacing: -0.01em; }
+/* ---------- about: starfield version ---------- */
+.space-page .about-head { position: relative; z-index: 2; border-bottom-color: #1d2128; }
+.space-page .about-head h1 { color: #f1f3f5; }
+.space-page .about-intro .lede { color: #f1f3f5; }
+.space-page .portrait { background: #15181d; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 30px 60px -30px rgba(120, 140, 255, 0.35); }
 .space-page .contact-links a { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.35); }
 .space-page .contact-links a:hover { text-decoration-color: var(--pin); }
-.about-copy .orbit-hint { margin-top: clamp(32px, 4vw, 56px); }
-.about-system { position: relative; }
-.portrait-orb { display: block; width: clamp(150px, 15vw, 220px); height: auto; aspect-ratio: 1; margin: 0 auto 24px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 70px rgba(150, 170, 255, 0.35); }
-.js .about-system { height: clamp(480px, 70vh, 680px); overflow: hidden; overflow: clip; }
-.js .portrait-orb { position: absolute; left: 50%; top: 50%; margin: 0; transform: translate(-50%, -50%); z-index: 2; }
-.space-page .about { position: relative; z-index: 2; padding-top: clamp(24px, 4vw, 48px); border-top: 1px solid #1d2128; }
+.space-page .about { position: relative; z-index: 2; }
 .space-page .about .bio p { color: #c9cfd8; }
 .space-page .about .bio a { color: #fff; }
 .space-page .timeline li { border-color: rgba(255, 255, 255, 0.12); color: #e9ecf1; }
@@ -786,10 +782,6 @@ body.home-dark { background: #000; color: #e9ecf1; }
 .space-page .kit dt { color: #8d95a1; }
 .space-page .kit dd { color: #e9ecf1; }
 .about-page .site-foot { margin-top: clamp(64px, 10vw, 120px); }
-@media (max-width: 900px) {
-  .about-hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
-  .js .about-system { height: clamp(420px, 110vw, 520px); }
-}
 
 /* Too narrow to keep each phrase on one line: let the text wrap evenly */
 @container (max-width: 640px) {
