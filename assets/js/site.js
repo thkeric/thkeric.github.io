@@ -228,8 +228,9 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
   location.replace(new URL("work/", location.href.split("#")[0]).href);
 }
 
-// Home: the name fills the width, letters rise in on load and lift towards
-// the cursor; markers pop up short notes when the cursor comes near.
+// Home: the name sits at the centre of a slow solar system. Stars twinkle on
+// a canvas behind it; each note is a planet on its own orbit. Bringing the
+// cursor near a planet slows the system and pops its note open.
 (function () {
   var root = document.querySelector(".intro");
   if (!root) return;
@@ -240,7 +241,7 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
   var full = nameEl.getAttribute("data-name");
   nameEl.setAttribute("aria-label", full);
 
-  // Build letters: one line on wide screens, "Tae Hyun / Kim" on narrow ones.
+  /* ---- name: letters, sizing, intro ---- */
   var letters = [];
   function build() {
     var lines = narrow.matches ? ["Tae Hyun", "Kim"] : [full];
@@ -261,7 +262,6 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
     });
     fit();
   }
-  // Size the name so its longest line spans the content width.
   function fit() {
     nameEl.style.fontSize = "100px";
     var widest = 0;
@@ -269,150 +269,238 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
       var r = document.createRange(); r.selectNodeContents(l);
       widest = Math.max(widest, r.getBoundingClientRect().width);
     });
-    var avail = root.clientWidth;
-    var size = Math.min(avail / widest * 100, window.innerHeight * (narrow.matches ? 0.2 : 0.3));
-    nameEl.style.fontSize = size.toFixed(1) + "px";
+    var size = Math.min(root.clientWidth / widest * 100, window.innerHeight * (narrow.matches ? 0.2 : 0.3));
+    nameEl.style.fontSize = (size * (narrow.matches ? 1 : 0.86)).toFixed(1) + "px";
+    centres = null;
   }
 
-  function intro() {
-    if (reduce || !nameEl.animate) return;
-    letters.forEach(function (l, i) {
-      l.el.animate([{ transform: "translateY(105%)" }, { transform: "translateY(0)" }],
-        { duration: 900, delay: 120 + i * 45, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
-    });
-    root.querySelectorAll(".note-pin").forEach(function (p, i) {
-      p.animate([{ transform: "scale(0)" }, { transform: "scale(1)" }],
-        { duration: 500, delay: 900 + i * 110, easing: "cubic-bezier(.2,1.5,.3,1)", fill: "backwards" });
-    });
-  }
-
-  build();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-  intro();
-  var resizeT;
-  window.addEventListener("resize", function () {
-    clearTimeout(resizeT);
-    resizeT = setTimeout(function () { build(); place(open); }, 120);
+  /* ---- planets ---- */
+  var SIZES = [18, 24, 16, 28, 20];
+  var PERIODS = [80, 105, 130, 155, 185];          // seconds per orbit
+  var START = [3.6, 5.5, 0.35, 2.1, 1.1];          // starting angle (radians)
+  var notes = Array.prototype.slice.call(root.querySelectorAll(".note")).map(function (li, i) {
+    var pin = li.querySelector(".note-pin");
+    var card = li.querySelector(".note-card");
+    pin.querySelector(".planet-body").style.setProperty("--s", SIZES[i % SIZES.length] + "px");
+    pin.style.setProperty("--d", (i * 0.6) + "s");
+    card.setAttribute("role", "note");
+    return { li: li, pin: pin, card: card, a: START[i % START.length], period: PERIODS[i % PERIODS.length], x: 0, y: 0, vx: 0, vy: 0, front: false };
   });
 
-  // Letters lift slightly towards the cursor (transform only, so it stays smooth).
-  var mx = -9999, my = -9999, raf = 0, centres = null;
+  /* ---- canvas ---- */
+  var canvas = document.createElement("canvas");
+  canvas.className = "space";
+  canvas.setAttribute("aria-hidden", "true");
+  document.body.insertBefore(canvas, document.body.firstChild);
+  var ctx = canvas.getContext("2d");
+  var W = 0, H = 0, stars = [], sys = null;
+
+  function layout() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var count = Math.min(420, Math.round(W * H / 5200));
+    stars = [];
+    for (var i = 0; i < count; i++) {
+      var big = Math.random() < 0.08;
+      stars.push({ x: Math.random() * W, y: Math.random() * H, r: big ? 0.9 + Math.random() * 0.9 : 0.3 + Math.random() * 0.7,
+        a: 0.25 + Math.random() * 0.6, p: Math.random() * 6.283, s: 0.4 + Math.random() * 1.6, z: 0.2 + Math.random() * 0.8 });
+    }
+    geometry();
+  }
+  function geometry() {
+    var rb = root.getBoundingClientRect();
+    var nb = nameEl.getBoundingClientRect();
+    var cx = nb.left + nb.width / 2, cy = nb.top + nb.height / 2;
+    var maxRx = Math.min(cx - rb.left, rb.right - cx) - (narrow.matches ? 22 : 34);
+    var ratio = Math.max(0.4, Math.min(1.05, (rb.height / rb.width) * 0.5));
+    if (narrow.matches) ratio = Math.max(0.95, Math.min(1.4, (rb.height - 200) / rb.width * 0.75));
+    var minRx = narrow.matches ? maxRx * 0.42 : Math.max(maxRx * 0.42, nb.height * 0.9 / ratio);
+    var radii = notes.map(function (_, i) { return minRx + (maxRx - minRx) * (i / Math.max(1, notes.length - 1)); });
+    sys = { cx: cx, cy: cy, ratio: ratio, radii: radii, rootLeft: rb.left, rootTop: rb.top };
+  }
+
+  /* ---- pointer, speed ---- */
+  var mx = -9999, my = -9999, speed = reduce ? 0 : 1, open = null, closeT = null, openedAt = 0;
+  var px = 0, py = 0;   // smoothed parallax
+  var centres = null;
   function measure() {
     centres = letters.map(function (l) {
       var r = l.el.parentNode.getBoundingClientRect();
       return [r.left + r.width / 2, r.top + r.height / 2];
     });
   }
-  window.addEventListener("scroll", function () { centres = null; }, { passive: true });
-  window.addEventListener("resize", function () { centres = null; });
-  function tick() {
-    raf = 0;
-    var moving = false;
-    if (!centres) measure();
-    letters.forEach(function (l, i) {
-      var d = Math.hypot(mx - centres[i][0], my - centres[i][1]);
-      var f = Math.max(0, 1 - d / 280);
-      l.ty = -f * f * 0.12;
-      l.y += (l.ty - l.y) * 0.18;
-      if (Math.abs(l.ty - l.y) > 0.0005) moving = true;
-      l.el.style.transform = "translateY(" + l.y.toFixed(4) + "em)";
-    });
-    if (moving) raf = requestAnimationFrame(tick);
-  }
-  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
 
-  // Notes
-  var notes = Array.prototype.slice.call(root.querySelectorAll(".note")).map(function (li, i) {
-    var pin = li.querySelector(".note-pin");
-    var card = li.querySelector(".note-card");
-    pin.style.setProperty("--d", (i * 0.45) + "s");
-    card.setAttribute("role", "note");
-    return { li: li, pin: pin, card: card };
-  });
-  var open = null, closeT = null, openedAt = 0;
+  /* ---- frame ---- */
+  var last = performance.now(), running = true, frameId = 0;
+  function frame(now) {
+    frameId = 0;
+    var dt = Math.min(0.05, (now - last) / 1000); last = now;
+    var t = now / 1000;
+    var near = false;
+
+    // planets: position on their orbit
+    notes.forEach(function (n, i) {
+      var rx = sys.radii[i], ry = rx * sys.ratio;
+      n.vx = sys.cx + Math.cos(n.a) * rx;
+      n.vy = sys.cy + Math.sin(n.a) * ry;
+      if (finePointer && Math.hypot(mx - n.vx, my - n.vy) < 150) near = true;
+    });
+    var target = reduce ? 0 : (open ? 0 : (near ? 0.15 : 1));
+    speed += (target - speed) * Math.min(1, dt * 4);
+    notes.forEach(function (n) {
+      n.a += speed * dt * (6.2832 / n.period) * (narrow.matches ? 0.75 : 1);
+      var depth = (Math.sin(n.a) + 1) / 2;             // 0 = far side (top), 1 = near side (bottom)
+      n.x = n.vx - sys.rootLeft; n.y = n.vy - sys.rootTop;
+      n.li.style.transform = "translate3d(" + n.x.toFixed(1) + "px," + n.y.toFixed(1) + "px,0)";
+      n.pin.style.transform = "scale(" + (0.7 + depth * 0.45).toFixed(3) + ")";
+      n.pin.style.opacity = (0.55 + depth * 0.45).toFixed(3);
+      var front = depth > 0.5;
+      if (front !== n.front) { n.front = front; n.li.classList.toggle("is-front", front); }
+    });
+
+    // background
+    var tx = finePointer ? (mx > -9000 ? (mx - W / 2) : 0) : 0, ty = finePointer ? (my > -9000 ? (my - H / 2) : 0) : 0;
+    px += (tx - px) * 0.05; py += (ty - py) * 0.05;
+    ctx.clearRect(0, 0, W, H);
+    var g = ctx.createRadialGradient(sys.cx, sys.cy, 0, sys.cx, sys.cy, Math.max(W, H) * 0.55);
+    g.addColorStop(0, "rgba(120,140,255,0.10)");
+    g.addColorStop(0.45, "rgba(80,90,200,0.04)");
+    g.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    for (var k = 0; k < stars.length; k++) {
+      var st = stars[k];
+      var tw = reduce ? 1 : 0.65 + 0.35 * Math.sin(t * st.s + st.p);
+      var sx = st.x - px * 0.02 * st.z, sy = st.y - py * 0.02 * st.z;
+      ctx.globalAlpha = st.a * tw;
+      ctx.fillStyle = "#fff";
+      ctx.beginPath(); ctx.arc(sx, sy, st.r, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    // orbits: far half dimmer than near half
+    ctx.lineWidth = 1;
+    sys.radii.forEach(function (rx) {
+      var ry = rx * sys.ratio;
+      ctx.strokeStyle = "rgba(255,255,255,0.06)";
+      ctx.beginPath(); ctx.ellipse(sys.cx, sys.cy, rx, ry, 0, Math.PI, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = "rgba(255,255,255,0.12)";
+      ctx.beginPath(); ctx.ellipse(sys.cx, sys.cy, rx, ry, 0, 0, Math.PI); ctx.stroke();
+    });
+
+    // name letters lift towards the cursor
+    if (finePointer && !reduce) {
+      if (!centres) measure();
+      letters.forEach(function (l, i) {
+        var d = Math.hypot(mx - centres[i][0], my - centres[i][1]);
+        var f = Math.max(0, 1 - d / 280);
+        l.ty = -f * f * 0.12;
+        l.y += (l.ty - l.y) * 0.18;
+        l.el.style.transform = "translateY(" + l.y.toFixed(4) + "em)";
+      });
+    }
+    if (open && speed > 0.002) place(open);
+    if (running && !reduce) frameId = requestAnimationFrame(frame);
+  }
+  function start() { if (!frameId) { last = performance.now(); frameId = requestAnimationFrame(frame); } }
+
+  /* ---- cards ---- */
   function place(n) {
-    if (!n) return;
-    var rb = root.getBoundingClientRect();
-    var pb = n.pin.getBoundingClientRect();
+    var rw = root.clientWidth, rh = root.clientHeight;
     var cw = n.card.offsetWidth, chh = n.card.offsetHeight;
-    var px = pb.left + pb.width / 2 - rb.left, py = pb.top + pb.height / 2 - rb.top;
-    var x = px + 24, y = py + 20;
-    if (x + cw > rb.width) x = px - 24 - cw;
-    if (x < 0) x = Math.max(0, Math.min(rb.width - cw, px - cw / 2));
     var foot = root.querySelector(".intro-foot");
-    var limit = foot ? foot.getBoundingClientRect().top - rb.top - 8 : rb.height - 8;
-    if (y + chh > limit) y = py - 20 - chh;
+    var limit = foot ? foot.offsetTop - 8 : rh - 8;
+    var x = n.x + 26, y = n.y + 18;
+    if (x + cw > rw) x = n.x - 26 - cw;
+    if (x < 0) x = Math.max(0, Math.min(rw - cw, n.x - cw / 2));
+    if (y + chh > limit) y = n.y - 18 - chh;
     if (y < 0) y = 8;
-    n.card.style.left = (x - (n.li.offsetLeft)) + "px";
-    n.card.style.top = (y - (n.li.offsetTop)) + "px";
-    n.card.style.transformOrigin = (px - x) + "px " + (py - y) + "px";
+    n.card.style.left = (x - n.x).toFixed(1) + "px";
+    n.card.style.top = (y - n.y).toFixed(1) + "px";
   }
   function show(n) {
     clearTimeout(closeT);
     if (open === n) return;
     if (open) hide(open, true);
-    open = n;
+    open = n; openedAt = Date.now();
+    n.li.classList.add("is-open");
     place(n);
-    openedAt = Date.now();
     n.card.classList.add("is-open");
     n.pin.setAttribute("aria-expanded", "true");
     if (!reduce && n.card.animate) {
-      n.card.animate([{ opacity: 0, transform: "scale(.6)" }, { opacity: 1, transform: "scale(1)" }],
-        { duration: 420, easing: "cubic-bezier(.2,1.25,.3,1)" });
+      n.card.animate([{ opacity: 0, transform: "translateY(6px) scale(.9)" }, { opacity: 1, transform: "none" }],
+        { duration: 380, easing: "cubic-bezier(.2,1.2,.3,1)" });
     }
+    if (reduce) frame(performance.now());
   }
   function hide(n, instant) {
     if (!n) return;
     n.pin.setAttribute("aria-expanded", "false");
     if (open === n) open = null;
+    var done = function () { if (open !== n) { n.card.classList.remove("is-open"); n.li.classList.remove("is-open"); } };
     if (!reduce && !instant && n.card.animate) {
-      var a = n.card.animate([{ opacity: 1, transform: "scale(1)" }, { opacity: 0, transform: "scale(.85)" }],
-        { duration: 160, easing: "ease-in" });
-      a.onfinish = function () { if (open !== n) n.card.classList.remove("is-open"); };
-    } else {
-      n.card.classList.remove("is-open");
-    }
+      n.card.animate([{ opacity: 1 }, { opacity: 0, transform: "scale(.94)" }], { duration: 150, easing: "ease-in" }).onfinish = done;
+    } else done();
   }
-  function scheduleClose() {
-    clearTimeout(closeT);
-    closeT = setTimeout(function () { hide(open); }, 140);
-  }
+  function scheduleClose() { clearTimeout(closeT); closeT = setTimeout(function () { hide(open); }, 160); }
 
   notes.forEach(function (n) {
     n.pin.addEventListener("click", function () {
-      // On touch, a tap focuses (opens) then clicks; don't let the click close it again.
-      if (open === n && !finePointer && Date.now() - openedAt > 350) hide(n);
-      else show(n);
+      if (open === n && !finePointer && Date.now() - openedAt > 350) hide(n); else show(n);
     });
     n.pin.addEventListener("focus", function () { show(n); });
     n.card.addEventListener("pointerenter", function () { clearTimeout(closeT); });
   });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") hide(open); });
-  document.addEventListener("click", function (e) {
-    if (open && !e.target.closest(".note")) hide(open);
-  });
+  document.addEventListener("click", function (e) { if (open && !e.target.closest(".note")) hide(open); });
 
   var hint = root.querySelector(".intro-hint");
-  if (hint && !finePointer) hint.textContent = "Tap the markers";
+  if (hint && !finePointer) hint.textContent = "Tap the planets";
 
   if (finePointer) {
-    root.addEventListener("pointermove", function (e) {
+    document.addEventListener("pointermove", function (e) {
       mx = e.clientX; my = e.clientY;
-      if (!reduce) kick();
-      if (e.target.closest(".note-card")) { clearTimeout(closeT); return; }
-      var best = null, bestD = 120;
+      if (e.target.closest && e.target.closest(".note-card")) { clearTimeout(closeT); return; }
+      var best = null, bestD = 70;
       notes.forEach(function (n) {
-        var r = n.pin.getBoundingClientRect();
-        var d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+        var d = Math.hypot(e.clientX - n.vx, e.clientY - n.vy);
         if (d < bestD) { bestD = d; best = n; }
       });
-      if (best) show(best);
-      else if (open) scheduleClose();
-    });
-    root.addEventListener("pointerleave", function () {
-      mx = my = -9999;
-      if (!reduce) kick();
-      if (open) scheduleClose();
-    });
+      if (best) show(best); else if (open) scheduleClose();
+      if (reduce) frame(performance.now());
+    }, { passive: true });
+    document.addEventListener("pointerleave", function () { mx = my = -9999; if (open) scheduleClose(); });
   }
+
+  /* ---- entrance ---- */
+  function intro() {
+    if (reduce || !nameEl.animate) return;
+    letters.forEach(function (l, i) {
+      l.el.animate([{ transform: "translateY(105%)" }, { transform: "translateY(0)" }],
+        { duration: 900, delay: 120 + i * 45, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
+    });
+    notes.forEach(function (n, i) {
+      n.pin.querySelector(".planet-body").animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }],
+        { duration: 700, delay: 900 + i * 140, easing: "cubic-bezier(.2,1.4,.3,1)", fill: "backwards" });
+    });
+    canvas.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1600, easing: "ease-out" });
+  }
+
+  /* ---- go ---- */
+  build();
+  layout();
+  intro();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(); geometry(); if (reduce) frame(performance.now()); });
+  frame(performance.now());
+  var resizeT;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function () { build(); layout(); if (reduce) frame(performance.now()); }, 120);
+  });
+  window.addEventListener("scroll", function () { centres = null; geometry(); if (reduce) frame(performance.now()); }, { passive: true });
+  document.addEventListener("visibilitychange", function () {
+    running = !document.hidden;
+    if (running && !reduce) start();
+  });
 })();

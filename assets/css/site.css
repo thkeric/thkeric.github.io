@@ -701,61 +701,68 @@ figure.flush { margin: 0; }
 .page-head h1 { font-size: clamp(48px, 8vw, 104px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.98; }
 .page-head .lede { margin-top: 20px; max-width: 46ch; }
 
-/* ---------- home: name and notes ---------- */
+/* ---------- home: name and orbiting notes ---------- */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 body.home-dark { background: #000; color: #e9ecf1; }
-.home-dark .site-head .name, .home-dark .site-head nav a { color: #e9ecf1; }
+.home-dark .site-head nav a { color: #e9ecf1; }
 .home-dark .site-head nav a:hover { color: #fff; }
-.home-dark .site-foot { border-top-color: #22262d; color: #8d95a1; margin-top: 0; }
+.site-head--home { justify-content: flex-end; }
+.home-dark .site-foot { border-top-color: #1d2128; color: #8d95a1; margin-top: 0; }
 .home-dark .site-foot a { color: #c4cad3; }
 .home-dark ::selection { background: var(--pin); color: #fff; }
+.space { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.home-dark .site-head, .home-dark main, .home-dark .site-foot { position: relative; z-index: 1; }
 
 .intro { position: relative; overflow: hidden; overflow: clip; min-height: calc(100svh - 76px); display: flex; flex-direction: column; justify-content: center; padding-block: 96px 120px; }
-.intro-name { margin: 0; font-size: clamp(56px, 14.2vw, 220px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; color: #f1f3f5; text-align: center; white-space: nowrap; user-select: none; }
+.intro-name { position: relative; z-index: 2; margin: 0; font-size: clamp(56px, 14.2vw, 220px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; color: #f1f3f5; text-align: center; white-space: nowrap; user-select: none; pointer-events: none; text-shadow: 0 0 60px rgba(150, 170, 255, 0.18); }
 .intro-name .nm-line { display: block; }
 .intro-name .nm-mask { display: inline-block; overflow: hidden; padding: 0.04em 0.01em 0.1em; margin: -0.04em -0.01em -0.1em; vertical-align: top; }
 .intro-name .nm-ch { display: inline-block; will-change: transform; }
 .intro-name .nm-sp { display: inline-block; width: 0.22em; }
 
 /* no-JS: notes read as a simple list under the name */
-.notes { list-style: none; margin: 40px auto 0; padding: 0; max-width: 60ch; display: grid; gap: 14px; }
+.notes { list-style: none; margin: 40px auto 0; padding: 0; max-width: 60ch; display: grid; gap: 14px; position: relative; z-index: 2; }
 .note-pin { display: none; }
 .note-card p { margin: 0; }
 .note-card { color: #c4cad3; font-size: 18px; line-height: 1.5; }
 .note-card a { display: inline-block; margin-top: 8px; color: #fff; font-weight: 700; }
 
-/* JS: notes become markers that pop up */
-.js .notes { position: absolute; inset: 0; margin: 0; max-width: none; display: block; pointer-events: none; }
-.js .note { position: absolute; left: var(--x); top: var(--y); width: 0; height: 0; }
-.js .note-pin { pointer-events: auto; position: absolute; left: -16px; top: -16px; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: var(--pin); color: #fff; font: 700 14px/1 var(--font); box-shadow: 0 0 0 3px #000; z-index: 2; transition: transform .25s cubic-bezier(.2, 1.4, .3, 1); }
-.js .note-pin::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--pin); opacity: 0; animation: pin-pulse 2.8s ease-out infinite; animation-delay: var(--d, 0s); }
-.js .note-pin[aria-expanded="true"] { transform: scale(1.18); }
-.js .note-pin[aria-expanded="true"]::after { animation: none; }
-.js .note-pin:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-@keyframes pin-pulse { 0% { transform: scale(1); opacity: .7; } 70%, 100% { transform: scale(2.1); opacity: 0; } }
-.js .note-card { pointer-events: auto; position: absolute; z-index: 3; width: max-content; max-width: min(340px, calc(100vw - 32px)); background: #f1f3f5; color: var(--ink); font-size: 19px; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; padding: 18px 20px 20px; border-radius: 16px; box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.7); visibility: hidden; opacity: 0; }
+/* JS: notes become planets on orbits around the name */
+.js .notes { position: absolute; inset: 0; margin: 0; max-width: none; display: block; pointer-events: none; z-index: auto; }
+.js .note { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 1; will-change: transform; }
+.js .note.is-front { z-index: 3; }
+.js .note.is-open { z-index: 10; }
+.js .note-pin { pointer-events: auto; position: absolute; left: -22px; top: -22px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: transparent; will-change: transform, opacity; }
+.planet-body { position: relative; display: block; width: var(--s, 18px); height: var(--s, 18px); border-radius: 50%; background: radial-gradient(circle at 34% 30%, #ffffff 0%, #eef1f7 32%, #b9c1d2 70%, #6f7890 100%); box-shadow: 0 0 14px rgba(255, 255, 255, 0.55), 0 0 42px rgba(170, 190, 255, 0.28); transition: box-shadow .3s ease, transform .3s cubic-bezier(.2, 1.4, .3, 1); }
+.planet-body::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.5); opacity: 0; animation: planet-pulse 3.2s ease-out infinite; animation-delay: var(--d, 0s); }
+.js .note-pin:hover .planet-body, .js .note-pin[aria-expanded="true"] .planet-body { transform: scale(1.25); box-shadow: 0 0 18px #fff, 0 0 60px rgba(214, 23, 90, 0.55); }
+.js .note-pin[aria-expanded="true"] .planet-body::after { animation: none; opacity: 1; border-color: var(--pin); }
+.js .note-pin:focus-visible { outline: none; }
+.js .note-pin:focus-visible .planet-body { box-shadow: 0 0 0 3px #000, 0 0 0 5px var(--pin), 0 0 30px #fff; }
+@keyframes planet-pulse { 0% { transform: scale(1); opacity: .6; } 70%, 100% { transform: scale(2.2); opacity: 0; } }
+.js .note-card { pointer-events: auto; position: absolute; z-index: 3; width: max-content; max-width: min(340px, calc(100vw - 32px)); background: #f1f3f5; color: var(--ink); font-size: 19px; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; padding: 18px 20px 20px; border-radius: 16px; box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.8); visibility: hidden; opacity: 0; }
 .js .note-card.is-open { visibility: visible; opacity: 1; }
 .js .note-card a { color: var(--ink); text-decoration-color: var(--pin); }
 
-.intro-foot { position: absolute; left: 0; right: 0; bottom: 28px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.intro-foot { position: absolute; left: 0; right: 0; bottom: 28px; z-index: 4; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
 .intro-hint { margin: 0; font-size: 15px; color: #8d95a1; display: none; }
 .js .intro-hint { display: flex; align-items: center; gap: 10px; }
-.intro-hint::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--pin); }
+.intro-hint::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px #fff; }
 .home-dark .cta-row { margin: 0; }
 .btn--light { background: #f1f3f5; color: var(--ink); border-color: #f1f3f5; }
 .btn--light:hover { background: var(--pin); border-color: var(--pin); color: #fff; }
-.btn--ghost { color: #f1f3f5; border-color: #5b626d; }
+.btn--ghost { color: #f1f3f5; border-color: #5b626d; background: rgba(0, 0, 0, 0.35); }
 .btn--ghost:hover { color: #fff; border-color: #fff; }
 
 @media (max-width: 700px) {
   .intro { padding-block: 72px 168px; }
-  .js .note { left: var(--mx); top: var(--my); }
   .intro-foot { flex-direction: column; align-items: flex-start; bottom: 24px; }
   .js .note-card { font-size: 17px; }
 }
+@media (max-width: 640px) { .site-head--home { flex-direction: row; } }
 @media (prefers-reduced-motion: reduce) {
-  .js .note-pin::after { animation: none; }
-  .js .note-pin { transition: none; }
+  .planet-body::after { animation: none; }
+  .planet-body { transition: none; }
 }
 
 /* Too narrow to keep each phrase on one line: let the text wrap evenly */
