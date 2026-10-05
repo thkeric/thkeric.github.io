@@ -12,9 +12,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=202610051557">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="../assets/css/site.css?v=202610051603">
 </head>
-<body>
+<body class="home-dark space-page about-page">
 <a class="skip" href="#content">Skip to content</a>
 <header class="wrap site-head">
   <a class="name" href="../">Tae Hyun Kim</a>
@@ -26,17 +27,46 @@
 </header>
 
 <main id="content">
-  <div class="wrap about-head">
-    <h1>About</h1>
-    <img class="portrait" src="../assets/img/eric.webp" alt="Portrait of Tae Hyun Kim in glasses and a black hoodie, in black and white" width="720" height="900">
-    <div class="about-intro">
+  <section class="wrap about-hero">
+    <div class="about-copy">
+      <h1>About</h1>
       <p class="lede"><span>Graduate product designer</span> <span>with an MSc in Design and Digital Media</span> <span>from the University of Edinburgh.</span> <span>Based in Seoul and ready to relocate.</span></p>
       <ul class="contact-links">
         <li><a href="mailto:ericthk.ux@gmail.com">ericthk.ux@gmail.com</a></li>
         <li><a href="https://www.linkedin.com/in/erickimux/" rel="me">LinkedIn</a></li>
       </ul>
+      <p class="orbit-hint" aria-hidden="true">Hover over the planets for a few things beyond the CV</p>
     </div>
-  </div>
+    <div class="orbit-system about-system" data-orbit="portrait">
+      <img class="portrait-orb" data-orbit-centre src="../assets/img/eric-orb.webp" alt="Portrait of Tae Hyun Kim in glasses and a black hoodie, in black and white" width="640" height="640">
+      <ol class="notes" aria-label="Beyond the CV">
+        <li class="note">
+          <button class="note-pin" type="button" aria-expanded="false" aria-controls="fact-1"><span class="planet-body" aria-hidden="true"></span><span class="sr-only">Fact 1</span></button>
+          <div class="note-card" id="fact-1"><p>Six years of study and life in the UK, from York to Edinburgh.</p></div>
+        </li>
+        <li class="note">
+          <button class="note-pin" type="button" aria-expanded="false" aria-controls="fact-2"><span class="planet-body" aria-hidden="true"></span><span class="sr-only">Fact 2</span></button>
+          <div class="note-card" id="fact-2"><p>Korean (native) and English (TOEIC 990, TOEIC Speaking AH), with basic Chinese.</p></div>
+        </li>
+        <li class="note">
+          <button class="note-pin" type="button" aria-expanded="false" aria-controls="fact-3"><span class="planet-body" aria-hidden="true"></span><span class="sr-only">Fact 3</span></button>
+          <div class="note-card" id="fact-3"><p>GTQ Level 1, Korea's national graphics qualification in Photoshop.</p></div>
+        </li>
+        <li class="note">
+          <button class="note-pin" type="button" aria-expanded="false" aria-controls="fact-4"><span class="planet-body" aria-hidden="true"></span><span class="sr-only">Fact 4</span></button>
+          <div class="note-card" id="fact-4"><p>Excellence award in a 2023 poster competition campaigning against drink-driving.</p></div>
+        </li>
+        <li class="note">
+          <button class="note-pin" type="button" aria-expanded="false" aria-controls="fact-5"><span class="planet-body" aria-hidden="true"></span><span class="sr-only">Fact 5</span></button>
+          <div class="note-card" id="fact-5"><p>Co-captained the University of York badminton team, growing it from 20 to 50 members.</p></div>
+        </li>
+        <li class="note">
+          <button class="note-pin" type="button" aria-expanded="false" aria-controls="fact-6"><span class="planet-body" aria-hidden="true"></span><span class="sr-only">Fact 6</span></button>
+          <div class="note-card" id="fact-6"><p>Reached Challenger tier in Wild Rift after more than 6,000 games.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
 
   <section class="wrap about" aria-label="Background">
     <div class="bio">
@@ -66,6 +96,6 @@
   <span>© 2026 Tae Hyun Kim</span>
   <span class="foot-links"><a href="mailto:ericthk.ux@gmail.com">ericthk.ux@gmail.com</a><a href="https://www.linkedin.com/in/erickimux/" rel="me">LinkedIn</a></span>
 </footer>
-<script src="../assets/js/site.js?v=202610051557" defer></script>
+<script src="../assets/js/site.js?v=202610051603" defer></script>
 </body>
 </html>
