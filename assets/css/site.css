@@ -302,6 +302,9 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
 .kit dt { font-size: 14px; color: var(--ink-3); margin-top: 14px; }
 .kit dd { margin: 2px 0 0; }
 .contact-line { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -0.02em; margin-top: 28px; }
+.contact-alt { font-size: 18px; margin: -4px 0 0; }
+.portrait { width: min(340px, 100%); aspect-ratio: 4 / 5; object-fit: cover; border-radius: 16px; margin-bottom: 28px; background: #2a2f37; }
+.foot-links { display: inline-flex; flex-wrap: wrap; gap: 20px; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
@@ -311,6 +314,8 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
   .review { grid-template-columns: minmax(0, 1fr); }
   .review-shot { width: min(300px, 80%); margin-inline: auto; }
   .about { grid-template-columns: 1fr; }
+  .about > div:last-child { display: flex; flex-direction: column; }
+  .portrait { width: min(280px, 72%); }
   .badge-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
