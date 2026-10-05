@@ -118,8 +118,9 @@ strong { font-weight: 700; }
 }
 .project .finding .pin { position: absolute; left: 4px; top: 0.42em; width: 14px; height: 14px; box-shadow: none; }
 .project .finding { padding-left: 32px; }
-.project .meta { font-size: 15px; line-height: 1.55; color: var(--ink-3); margin: 0; }
-.project .meta span { white-space: nowrap; }
+.project > div:first-child { container-type: inline-size; }
+/* Skills stay on one line: the size scales down only when the column is too narrow */
+.project .meta { font-size: min(15px, calc(100cqi / 28)); line-height: 1.55; color: var(--ink-3); margin: 0; white-space: nowrap; }
 .project .go { display: inline-block; margin-top: 20px; font-weight: 700; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 0.25em; }
 .project:hover .go { text-decoration-color: var(--pin); }
 
