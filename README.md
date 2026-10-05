@@ -4,7 +4,9 @@ Portfolio site of Tae Hyun (Eric) Kim, product designer. Live at https://thkeric
 
 Plain HTML and CSS, no build step. Pages:
 
-- `index.html`: home, project list and about
+- `index.html`: home (landing)
+- `work/`: project list
+- `about/`: about page
 - `budgetbills/`: BudgetBills case study
 - `thryve/`: Thryve case study
 - `ignis-oasis/`: Ignis Oasis project

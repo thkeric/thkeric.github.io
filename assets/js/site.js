@@ -222,3 +222,8 @@
   }, { passive: true });
   check();
 })();
+
+// Old links to the home page's work section now go to the Work page.
+if (location.hash === "#work" && !document.querySelector("#work")) {
+  location.replace(new URL("work/", location.href.split("#")[0]).href);
+}
