@@ -140,3 +140,29 @@
     update();
   });
 })();
+
+// Back-to-top button: appears after scrolling down, returns to the top.
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "to-top";
+  btn.setAttribute("aria-label", "Back to top");
+  btn.innerHTML = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3 L18 16 L2 16 Z" fill="currentColor"/></svg>';
+  document.body.appendChild(btn);
+  btn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    var skip = document.querySelector(".site-head .name");
+    if (skip) skip.focus({ preventScroll: true });
+  });
+  var shown = false, ticking = false;
+  function check() {
+    ticking = false;
+    var show = window.scrollY > Math.min(600, window.innerHeight * 0.8);
+    if (show !== shown) { shown = show; btn.classList.toggle("is-visible", show); }
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(check); }
+  }, { passive: true });
+  check();
+})();
