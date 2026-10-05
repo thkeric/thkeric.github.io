@@ -335,6 +335,13 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
           var r = rg.getBoundingClientRect();
           L = Math.min(L, r.left); T = Math.min(T, r.top); R = Math.max(R, r.right); B = Math.max(B, r.bottom);
         });
+        // the role line under the name is kept clear of the orbits too
+        root.querySelectorAll("[data-orbit-extra]").forEach(function (x) {
+          var rg = document.createRange(); rg.selectNodeContents(x);
+          var r = rg.getBoundingClientRect();
+          if (!r.width) return;
+          L = Math.min(L, r.left); T = Math.min(T, r.top); R = Math.max(R, r.right); B = Math.max(B, r.bottom);
+        });
         cb = { left: L, top: T, width: R - L, height: B - T };
       }
       var cx = cb.left + cb.width / 2, cy = cb.top + cb.height / 2;

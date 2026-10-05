@@ -720,6 +720,10 @@ body.home-dark { background: #000; color: #e9ecf1; }
 .intro-name .nm-ch { display: inline-block; }
 .intro-name.is-revealed .nm-mask { overflow: visible; }
 .intro-name .nm-sp { display: inline-block; width: 0.22em; }
+.intro-role { position: relative; z-index: 2; margin: clamp(14px, 1.6vw, 26px) 0 0; text-align: center; font-size: clamp(17px, 1.7vw, 24px); font-weight: 500; letter-spacing: 0.01em; color: #aeb5c0; pointer-events: none; }
+.js .intro-role { animation: role-in .9s cubic-bezier(.2, .8, .2, 1) .75s backwards; }
+@keyframes role-in { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) { .js .intro-role { animation: none; } }
 
 /* no-JS: notes read as a simple list under the name */
 .notes { list-style: none; margin: 40px auto 0; padding: 0; max-width: 60ch; display: grid; gap: 14px; position: relative; z-index: 2; }
@@ -803,6 +807,16 @@ body.home-dark { background: #000; color: #e9ecf1; }
 .work-page .project:focus-visible { outline-offset: 8px; }
 @media (prefers-reduced-motion: reduce) { .work-page .stage { transition: none; } .work-page .project:hover .stage { transform: none; } }
 .work-page .site-foot { margin-top: clamp(64px, 10vw, 120px); }
+
+/* concept screens */
+.concept { margin-bottom: clamp(48px, 6vw, 80px); }
+.concept-tag { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 20px; font-size: 14px; font-weight: 700; color: var(--bb); background: #fff; padding: 6px 12px; border-radius: 99px; }
+.concept-tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #f28c6a; }
+.carousel--concept { --per-view: 3; --gap: clamp(16px, 3vw, 48px); }
+.carousel--concept .screen { box-shadow: 0 0 0 1px rgba(16, 34, 42, 0.08), 0 30px 60px -30px rgba(18, 64, 79, 0.55); }
+.carousel--concept figcaption { margin-top: 18px; font-size: 15px; line-height: 1.5; color: var(--ink-2); max-width: 34ch; }
+.carousel--concept figcaption b { display: block; color: var(--ink); font-size: 17px; margin-bottom: 4px; }
+@media (max-width: 760px) { .carousel--concept { --per-view: 1; } .carousel--concept figure { padding-inline: 12%; } }
 
 /* Too narrow to keep each phrase on one line: let the text wrap evenly */
 @container (max-width: 640px) {
