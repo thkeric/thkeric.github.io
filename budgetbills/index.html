@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BudgetBills case study, Tae Hyun Kim</title>
+<meta name="description" content="BudgetBills: research, information architecture, a Figma prototype and a usability test for a bill-splitting money app.">
+<meta property="og:title" content="BudgetBills, a case study by Tae Hyun Kim">
+<meta property="og:description" content="Splitting a bill is hard because someone has to bring it up. Research, prototype and usability test.">
+<meta property="og:image" content="https://thkeric.github.io/assets/img/og.png">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="wrap site-head">
+  <a class="name" href="../">Tae Hyun Kim</a>
+  <nav aria-label="Main">
+    <a href="../#work" aria-current="page">Work</a>
+    <a href="../#about">About</a>
+    <a href="mailto:ericthk.ux@gmail.com">Email</a>
+  </nav>
+</header>
+
+<main id="content">
+  <div class="wrap cs-head">
+    <a class="back" href="../#work">All work</a>
+    <h1>BudgetBills</h1>
+    <p class="lede">A money app built around splitting bills, for people who would rather not bring up money.</p>
+    <dl class="facts">
+      <div><dt>My role</dt><dd>Solo: research, IA, wireframes, Figma prototype, usability testing</dd></div>
+      <div><dt>Context</dt><dd>Fundamentals of UX Design, MSc at the University of Edinburgh</dd></div>
+      <div><dt>When</dt><dd>October to December 2024</dd></div>
+      <div><dt>Tools</dt><dd>Google Forms, Mural, Balsamiq, Figma</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap cs-hero">
+    <div class="stage stage--bb">
+      <div class="screen"><img src="../assets/img/bb/onboard-3.webp" alt="Onboarding screen introducing bill splitting" width="640" height="1387"></div>
+      <div class="screen"><img src="../assets/img/bb/bill-1.webp" alt="Bill screen with card balance, friends and payment history" width="640" height="1387"></div>
+      <div class="screen"><img src="../assets/img/bb/budget.webp" alt="Budget screen with a weekly spending chart and categories" width="640" height="1387"></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="text">
+      <h2>The short version</h2>
+      <p>I set out to build a budgeting app and ended up focused on one moment: asking a friend to pay you back. A survey of 40 people showed that splitting a bill is rarely hard because of the maths. It's hard because someone has to bring it up.</p>
+      <p>I narrowed the app to four areas, designed and animated a Figma prototype, and ran a task-based test with three people. They completed five of six tasks, but nobody could add a card. Looking back, I also found something the test couldn't show: the bill flow passed every task without solving the problem my research had found.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="research">
+    <div class="text">
+      <h2 id="research">Research: the problem isn't the maths</h2>
+      <p>I started with four apps people already use, Pocketguard, YNAB, Monzo and Credit Karma, to see what they do well and where they fall short. Then I ran an online survey (40 responses, mostly 18 to 24 and half of them students) and three short recorded interviews.</p>
+    </div>
+    <figure class="wide panel">
+      <img src="../assets/img/bb/competitors.webp" alt="Competitor analysis table listing pros and cons of Pocketguard, YNAB, Monzo and Credit Karma" width="1366" height="768" loading="lazy">
+      <figcaption>Competitor scan. Monzo was the closest to what I wanted, but bill splitting is a side feature there.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="figures">
+        <div><b>70%</b><span>don't use any money app other than their bank's</span></div>
+        <div><b>77.5%</b><span>want to see their spending in real time, the most-wanted feature</span></div>
+        <div><b>90%</b><span>want bill splitting built into the way they already pay</span></div>
+      </div>
+      <figure>
+        <p class="chart-title">What makes splitting a bill difficult? (40 responses, pick any)</p>
+        <ul class="bars" aria-label="Survey results">
+          <li class="hl"><span>Talking about money</span><span class="track"><span class="fill" style="--v:47.5%"></span><span class="val" style="--v:47.5%">47.5%</span></span></li>
+          <li><span>Sense of unfairness</span><span class="track"><span class="fill" style="--v:35%"></span><span class="val" style="--v:35%">35%</span></span></li>
+          <li><span>Awkwardness</span><span class="track"><span class="fill" style="--v:35%"></span><span class="val" style="--v:35%">35%</span></span></li>
+          <li><span>Social status</span><span class="track"><span class="fill" style="--v:27.5%"></span><span class="val" style="--v:27.5%">27.5%</span></span></li>
+          <li><span>Cultural expectations</span><span class="track"><span class="fill" style="--v:27.5%"></span><span class="val" style="--v:27.5%">27.5%</span></span></li>
+          <li><span>Affordability</span><span class="track"><span class="fill" style="--v:25%"></span><span class="val" style="--v:25%">25%</span></span></li>
+        </ul>
+        <p class="chart-note">Yet only 20% said they often run into disputes when splitting a bill.</p>
+      </figure>
+      <div class="callout"><p>People rarely fight about splitting a bill. What they dread is being the one who asks. The cost is social, not mathematical.</p></div>
+      <p>The interviews pointed the same way on spending. All three people checked their spending every day and wanted real-time alerts. One asked to see what share of their whole balance was left, not just what they'd spent in a shop.</p>
+      <p>I turned the survey and interviews into three personas and a journey map, which kept the young, newly independent user in front of me through the rest of the project.</p>
+    </div>
+    <div class="wide scroller" role="region" aria-label="Personas" tabindex="0">
+      <img class="flat" src="../assets/img/bb/persona-1.webp" alt="Persona: Jonathan Kirman, 31, UX designer saving to travel" width="1366" height="780" loading="lazy">
+      <img class="flat" src="../assets/img/bb/persona-2.webp" alt="Persona: Molly Lee, 23, fashion student working part time" width="1366" height="780" loading="lazy">
+      <img class="flat" src="../assets/img/bb/persona-3.webp" alt="Persona: Olivia Hammond, 45, freelance developer with two sons" width="1366" height="780" loading="lazy">
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="scope">
+    <div class="text">
+      <h2 id="scope">Cutting the scope to four areas</h2>
+      <p>My first information architecture tried to do everything: budgets, transactions, monthly reports, leaderboards, recommendations. Tutor feedback on my first submission was that it was too wide, and with four weeks left to build the prototype, I agreed.</p>
+      <p>I cut it down to four areas around splitting money: Home, Budget, Bill and Cards. Leaderboards, monthly reports and anything investment-related went.</p>
+    </div>
+    <div class="wide pair">
+      <figure><p class="label">Before</p><img src="../assets/img/bb/ia-before.webp" alt="First information architecture with Home, Budget, Transactions and Monthly Reports branches" width="1600" height="900" loading="lazy"></figure>
+      <figure><p class="label">After</p><img src="../assets/img/bb/ia-after.webp" alt="Revised information architecture with Home, Budget, Bill and Cards branches" width="1100" height="619" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sketch">
+    <div class="text">
+      <h2 id="sketch">From sketches to screens</h2>
+      <p>I sketched on paper first, mapped the user flow, then built mid-fidelity wireframes in Balsamiq before moving to Figma.</p>
+    </div>
+    <div class="wide row">
+      <figure class="shot"><img src="../assets/img/bb/sketch-2.webp" alt="Hand sketch of the card screen" width="900" height="1288" loading="lazy"><figcaption>Paper sketches</figcaption></figure>
+      <figure class="shot" style="flex-basis:520px"><img src="../assets/img/bb/userflow.webp" alt="User flow diagram from opening the app through budget, transactions, reports and profile" width="1400" height="1449" loading="lazy"><figcaption>User flow</figcaption></figure>
+    </div>
+    <figure class="wide panel" style="max-width:980px">
+      <img src="../assets/img/bb/wire-map.webp" alt="Balsamiq wireframes connected by arrows: sign up, home dashboard, profile, notifications, transactions, budget and spending" width="2000" height="1947" loading="lazy">
+      <figcaption>Mid-fidelity wireframes in Balsamiq. At this stage the home screen still had a bottom tab bar.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section" aria-labelledby="decisions">
+    <div class="text">
+      <h2 id="decisions">Design decisions</h2>
+      <ul class="decisions">
+        <li><b>A darker, calmer palette</b><span>All three interviewees preferred deep blues and greens. One said a darker shade of the blue I'd started with (#4F86C6) would suit a finance app better, so I moved to a deep teal.</span></li>
+        <li><b>No bottom tab bar</b><span>Money screens need room for numbers. I swapped the tab bar for a text menu at the top and a summary sheet that slides up from the bottom. Testers were surprised at first, but said it didn't get in their way.</span></li>
+        <li><b>A grid of large tiles</b><span>The home screen and side menu use a bento-style grid, so everything lives in boxes of the same shape and people learn where things are quickly.</span></li>
+        <li><b>Onboarding that shows the features</b><span>Four onboarding screens, one per area: transactions, cards, bill splitting and budgets. An animated logo splash comes first and covers loading time.</span></li>
+      </ul>
+    </div>
+    <div class="wide panel panel--bb">
+      <div class="row">
+        <figure class="shot"><div class="screen"><img src="../assets/img/bb/splash.webp" alt="Splash screen with the BudgetBills logo" width="640" height="1387" loading="lazy"></div><figcaption>Splash</figcaption></figure>
+        <figure class="shot"><div class="screen"><img src="../assets/img/bb/onboard-1.webp" alt="Onboarding: view transactions" width="640" height="1387" loading="lazy"></div><figcaption>Onboarding</figcaption></figure>
+        <figure class="shot"><div class="screen"><img src="../assets/img/bb/home.webp" alt="Home with recent transactions and reward points" width="640" height="1387" loading="lazy"></div><figcaption>Home summary sheet</figcaption></figure>
+        <figure class="shot"><div class="screen"><img src="../assets/img/bb/menu.webp" alt="Side menu with four large tiles: Transactions, Cards, Budgets, Bills" width="640" height="1387" loading="lazy"></div><figcaption>Tile menu</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="prototype">
+    <div class="text">
+      <h2 id="prototype">The prototype</h2>
+      <p>It was my first time using Figma, and I hadn't known you could animate in it. The splash and onboarding took far longer than planned, but every tester mentioned them. These clips are recorded from the prototype.</p>
+    </div>
+    <div class="wide panel panel--bb">
+      <div class="row">
+        <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-first-run-poster.webp" width="356" height="780" aria-label="Prototype recording: splash, onboarding and sign-up"><source src="../assets/video/bb-first-run.mp4" type="video/mp4"></video></div><figcaption>First run</figcaption></figure>
+        <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-split-poster.webp" width="356" height="780" aria-label="Prototype recording: sending £20 to a friend"><source src="../assets/video/bb-split.mp4" type="video/mp4"></video></div><figcaption>Sending money to a friend</figcaption></figure>
+        <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-budget-poster.webp" width="356" height="780" aria-label="Prototype recording: setting a budget with a slider"><source src="../assets/video/bb-budget.mp4" type="video/mp4"></video></div><figcaption>Setting a budget</figcaption></figure>
+      </div>
+    </div>
+    <div class="wide scroller" role="region" aria-label="More prototype screens" tabindex="0" style="margin-top:24px">
+      <div class="screen"><img src="../assets/img/bb/home-top.webp" alt="Home with a carousel of shortcuts and a credit score card" width="640" height="1387" loading="lazy"></div>
+      <div class="screen"><img src="../assets/img/bb/bill-2.webp" alt="Bill history with Send Funds and Request Funds buttons" width="640" height="1387" loading="lazy"></div>
+      <div class="screen"><img src="../assets/img/bb/bill-3.webp" alt="Send funds: choose a friend, amount and payment type" width="640" height="1387" loading="lazy"></div>
+      <div class="screen"><img src="../assets/img/bb/bill-5.webp" alt="Transfer completed" width="640" height="1387" loading="lazy"></div>
+      <div class="screen"><img src="../assets/img/bb/spending.webp" alt="Monthly spending donut chart by category" width="640" height="1387" loading="lazy"></div>
+      <div class="screen"><img src="../assets/img/bb/chatbot.webp" alt="Chatbot offering help topics" width="640" height="1387" loading="lazy"></div>
+      <div class="screen"><img src="../assets/img/bb/badges.webp" alt="Badges list" width="640" height="1387" loading="lazy"></div>
+      <div class="screen"><img src="../assets/img/bb/card-add.webp" alt="Add new card sheet with a scan illustration" width="640" height="1387" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="testing">
+    <div class="text">
+      <h2 id="testing">Usability test: six tasks, three people</h2>
+      <p>I picked three survey respondents with different levels of experience with money apps: little, some and a lot. Each session ran remotely for about 15 minutes. They shared the Figma prototype on screen and their camera, so I could watch both their cursor and their face. A task only counted as a success if they finished it without a hint.</p>
+      <table class="results">
+        <thead><tr><th scope="col">Task</th><th scope="col">Completed without help</th><th scope="col">What I saw</th></tr></thead>
+        <tbody>
+          <tr><td>Use the chatbot</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>Each answer jumped to another tab, so people had to keep coming back to the chat.</td></tr>
+          <tr><td>Turn on notifications</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>Everyone liked real-time alerts and wanted to see an example alert.</td></tr>
+          <tr><td>Find your badges</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot miss"></i></span>2/3</td><td>People expected badges to be in the rewards panel, not the profile.</td></tr>
+          <tr class="fail"><td>Add a new card</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot miss"></i><i class="dot miss"></i><i class="dot miss"></i></span>0/3</td><td>Nobody recognised the scan icon in the top-left corner as "add a card".</td></tr>
+          <tr><td>Set a budget</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>One person took a while to find the slider.</td></tr>
+          <tr><td>Send money to a friend</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>One person wanted to send money straight from the home screen.</td></tr>
+        </tbody>
+      </table>
+      <p>On looks, people called the app professional, readable and neat. The most useful comment stung a little: <q>readable and neat but no character to show brand</q>. Others said the icons varied in size and there was too much empty space under the summary sheet.</p>
+    </div>
+    <figure class="text">
+      <img src="../assets/img/bb/test-notes.webp" alt="Handwritten test notes with an overall score of 8 out of 10 and comments about colour and branding" width="725" height="1024" loading="lazy" style="width:min(380px,100%);border-radius:8px">
+      <figcaption>My notes from one session.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section" aria-labelledby="review">
+    <div class="text">
+      <h2 id="review">Looking back: where the design fell short</h2>
+      <p>I went back through my own screens with the test results and survey data open beside them. Three problems stood out.</p>
+    </div>
+
+    <div class="text">
+      <div class="review">
+        <div class="review-shot">
+          <div class="screen"><img src="../assets/img/bb/card.webp" alt="Card screen. The only way to add a card is a barcode-scan icon in the top-left corner." width="640" height="1387" loading="lazy"></div>
+          <span class="ring" style="--x:6.5%;--y:8.4%;--w:21%;--h:5.4%"></span>
+          <span class="pin" style="--x:33%;--y:11%">1</span>
+          <span class="pin" style="--x:88%;--y:67%">2</span>
+        </div>
+        <div class="review-notes"><h3>Adding a card: 0 of 3</h3><ol>
+          <li><span class="pin">1</span>This barcode icon was the only way to add a card. Bank cards don't have barcodes, so the icon gave people nothing to recognise.</li>
+          <li><span class="pin">2</span>There was a second route, through the summary sheet on Home, but I hadn't wired it up in the prototype. In the wireframes, Cards had its own tab in a bottom bar; removing the tab bar to free up space hid the path further. One tester suggested a text button, or putting "Add card" under Manage Card.</li>
+        </ol></div>
+      </div>
+
+      <div class="review">
+        <div class="review-shot">
+          <div class="screen"><img src="../assets/img/bb/home-top.webp" alt="Home screen. A credit score card with question marks fills the middle; spending is hidden in a collapsed sheet at the bottom." width="640" height="1387" loading="lazy"></div>
+          <span class="ring" style="--x:9%;--y:32%;--w:84%;--h:33%"></span>
+          <span class="pin" style="--x:90%;--y:33%">1</span>
+          <span class="ring" style="--x:2%;--y:80.5%;--w:96%;--h:18%"></span>
+          <span class="pin" style="--x:90%;--y:81%">2</span>
+          <span class="ring" style="--x:2%;--y:12.5%;--w:96%;--h:9%"></span>
+          <span class="pin" style="--x:94%;--y:22.5%">3</span>
+        </div>
+        <div class="review-notes"><h3>Home: the most-wanted feature is hidden</h3><ol>
+          <li><span class="pin">1</span>The best spot on the screen goes to a credit score card that doesn't do anything yet.</li>
+          <li><span class="pin">2</span>Meanwhile real-time spending, which 77.5% of people asked for, sits in a collapsed sheet at the bottom.</li>
+          <li><span class="pin">3</span>The shortcut row is cut off, and Chat comes first. One tester argued My Activity should lead.</li>
+        </ol></div>
+      </div>
+
+      <div class="review">
+        <div class="review-shot">
+          <div class="screen"><img src="../assets/img/bb/bill-2.webp" alt="Bill history sheet with Send Funds and Request Funds buttons" width="640" height="1387" loading="lazy"></div>
+          <span class="ring" style="--x:54%;--y:51%;--w:36%;--h:17%"></span>
+          <span class="pin" style="--x:92%;--y:52%">1</span>
+        </div>
+        <div class="review-notes"><h3>Splitting: passed the test, missed the point</h3><ol>
+          <li><span class="pin">1</span>Everyone could send money, so the task passed 3 out of 3. But there's no way to divide one bill between several people, and asking for money is still something you have to do yourself. The flow never touches the problem nearly half my survey described: having to bring it up.</li>
+        </ol></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="next">
+    <div class="text">
+      <h2 id="next">What I'd change next</h2>
+      <p>I haven't designed or tested these changes yet. This is the plan, tied to the evidence behind each change and how I'd check it worked.</p>
+      <h3>A split flow that does the asking for you</h3>
+      <ol>
+        <li>Pay with your card as usual.</li>
+        <li>Tap <b>Split</b> on the transaction itself, so splitting is part of how you pay (90% asked for this).</li>
+        <li>Pick who was there. BudgetBills divides the amount evenly or by item.</li>
+        <li>BudgetBills sends the request in its own neutral voice, so nobody has to word an awkward message.</li>
+        <li>You can see who has paid, and a gentle reminder goes out automatically.</li>
+      </ol>
+      <table class="trace">
+        <thead><tr><th scope="col">Problem</th><th scope="col">Evidence</th><th scope="col">Change</th><th scope="col">How I'd measure it</th></tr></thead>
+        <tbody>
+          <tr><td>Asking for money is awkward</td><td>47.5% in the survey</td><td>Split from the transaction; the app sends the request and reminders</td><td>How awkward asking felt, on a 1 to 7 scale, before and after</td></tr>
+          <tr><td>Nobody could add a card</td><td>0/3 in testing</td><td>A labelled "Add card" button, also under Manage Card</td><td>Share of people who add a card without help</td></tr>
+          <tr><td>Spending is hidden</td><td>77.5% want real-time spending</td><td>This month's spending and the share of budget left at the top of Home</td><td>Can people say how much budget they have left?</td></tr>
+          <tr><td>Badges are hard to find</td><td>2/3 in testing</td><td>Move badges into Rewards, with one way in</td><td>Share of people who find badges without help</td></tr>
+          <tr><td>"No character"</td><td>Test feedback</td><td>One accent colour, stronger contrast, icons at one consistent size</td><td>Repeat the look-and-feel questions</td></tr>
+        </tbody>
+      </table>
+      <p>If this were a live product, I'd also watch how many split requests actually get paid, how long that takes, and how often people tap Split on a transaction.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="learned">
+    <div class="text">
+      <h2 id="learned">What I learned</h2>
+      <ul class="decisions">
+        <li><b>Passing a task isn't the same as solving the problem</b><span>Usability tests tell you whether people can use a flow. I now check separately that the flow tackles what the research found.</span></li>
+        <li><b>Icons borrow meaning from what people already know</b><span>A barcode means scanning a product. Cards don't have barcodes, so the icon couldn't work however well it was drawn.</span></li>
+        <li><b>Cutting scope made the work better</b><span>Four areas done properly beat ten done thinly.</span></li>
+        <li><b>Small samples still show clear signals</b><span>Three people is not enough to prove much. But when all three fail at the same step, that's worth fixing first.</span></li>
+      </ul>
+      <p class="small">Persona photos are AI-generated placeholders, and a few interface elements come from Figma community kits. I replaced real brand logos on the home screen with plain letters.</p>
+      <a class="next" href="../thryve/"><span>Next case study</span><b>Thryve</b></a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap site-foot">
+  <span>© 2026 Tae Hyun Kim</span>
+  <a href="mailto:ericthk.ux@gmail.com">ericthk.ux@gmail.com</a>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

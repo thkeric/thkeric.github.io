@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thryve case study, Tae Hyun Kim</title>
+<meta name="description" content="Thryve: a playful health app for people who don't track anything. Research, brand, 3D badges and a working React Native build.">
+<meta property="og:title" content="Thryve, a case study by Tae Hyun Kim">
+<meta property="og:description" content="A health app for people who don't track anything, built in React Native with badges sculpted in Blender.">
+<meta property="og:image" content="https://thkeric.github.io/assets/img/og.png">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="wrap site-head">
+  <a class="name" href="../">Tae Hyun Kim</a>
+  <nav aria-label="Main">
+    <a href="../#work" aria-current="page">Work</a>
+    <a href="../#about">About</a>
+    <a href="mailto:ericthk.ux@gmail.com">Email</a>
+  </nav>
+</header>
+
+<main id="content">
+  <div class="wrap cs-head">
+    <a class="back" href="../#work">All work</a>
+    <h1>Thryve</h1>
+    <p class="lede">A health app for people who don't track anything, built for real in React Native.</p>
+    <dl class="facts">
+      <div><dt>My role</dt><dd>Solo: research, brand, UX/UI, 3D modelling, development</dd></div>
+      <div><dt>Context</dt><dd>MSc final project and thesis, University of Edinburgh</dd></div>
+      <div><dt>When</dt><dd>2025</dd></div>
+      <div><dt>Tools</dt><dd>Google Forms, Figma, Balsamiq, React Native, Appwrite, After Effects, Blender</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap cs-hero">
+    <div class="stage stage--void">
+      <div class="screen"><img src="../assets/img/th/onboard-2.webp" alt="Onboarding screen: Gain Experience" width="640" height="1390"></div>
+      <div class="screen"><img src="../assets/img/th/home.webp" alt="Home screen with an animated robot avatar and the question What's next?" width="640" height="1385"></div>
+      <div class="screen"><img src="../assets/img/th/achieve-newbie.webp" alt="Achievements screen showing the Newbie robot badge" width="640" height="1385"></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="text">
+      <h2>The short version</h2>
+      <p>Most health apps are built for people who are already motivated. My survey showed that most people don't see themselves as trackers, and many of them don't use any health tool at all. Thryve turns small, everyday health actions into visible progress, with badges and an avatar that grow as you do.</p>
+      <p>I wrote a manifesto before designing anything, then built the app in React Native so it would behave like a real product, with sign-up, log-in and animation. Feedback on my first badges showed they contradicted my own manifesto, so I redesigned them as robots I sculpted in Blender. Reviewing the finished build, I also found that its core loop never made it onto the home screen.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="problem">
+    <div class="text">
+      <h2 id="problem">Health apps reward people who are already motivated</h2>
+      <p>People mainly quit health apps because a feature they need is missing or nothing keeps them going (Mustafa et al., 2022). The apps I studied each lean towards people who are already committed:</p>
+      <ul class="decisions">
+        <li><b>Strava</b><span>Built around competition: segments, leaderboards, personal bests.</span></li>
+        <li><b>Fitbit</b><span>The best features depend on owning the device.</span></li>
+        <li><b>Pokémon Go</b><span>Gets people walking, but health is a side effect of the game, not the goal.</span></li>
+      </ul>
+      <p>I surveyed 30 people about their habits and what keeps them going. 70% were 18 to 24, and 60% described themselves as moderately active.</p>
+      <div class="figures">
+        <div><b>22 of 30</b><span>didn't see themselves as people who love tracking progress and setting goals</span></div>
+        <div><b>9 of those 22</b><span>used no health tool at all, compared with 1 of the 8 trackers</span></div>
+        <div><b>50%</b><span>picked streaks, and 50% badges, as the most motivating features</span></div>
+      </div>
+      <figure>
+        <p class="chart-title">Which features would you find most motivating? (30 responses, up to 3)</p>
+        <ul class="bars" aria-label="Survey results" style="--bars:#4d54d9">
+          <li class="hl"><span>Streaks</span><span class="track"><span class="fill" style="--v:50%"></span><span class="val" style="--v:50%">50%</span></span></li>
+          <li class="hl"><span>Badges and achievements</span><span class="track"><span class="fill" style="--v:50%"></span><span class="val" style="--v:50%">50%</span></span></li>
+          <li><span>Levels and progress</span><span class="track"><span class="fill" style="--v:40%"></span><span class="val" style="--v:40%">40%</span></span></li>
+          <li><span>Points for tasks</span><span class="track"><span class="fill" style="--v:33.3%"></span><span class="val" style="--v:33.3%">33%</span></span></li>
+          <li><span>Timed challenges</span><span class="track"><span class="fill" style="--v:33.3%"></span><span class="val" style="--v:33.3%">33%</span></span></li>
+          <li><span>Leaderboard</span><span class="track"><span class="fill" style="--v:16.7%"></span><span class="val" style="--v:16.7%">17%</span></span></li>
+          <li><span>Custom profiles and avatars</span><span class="track"><span class="fill" style="--v:13.3%"></span><span class="val" style="--v:13.3%">13%</span></span></li>
+        </ul>
+        <p class="chart-note">Competitive features like leaderboards came near the bottom.</p>
+      </figure>
+      <div class="callout"><p>People who aren't very motivated don't need more data. They need a small goal they can hit today and a result they can see.</p></div>
+      <p>Among the 22 non-trackers, the most requested support was personalised goals and habit tracking (11 people), then daily motivation (9) and visual progress (9).</p>
+    </div>
+    <div class="wide pair">
+      <figure><img src="../assets/img/th/persona-1.webp" alt="Persona: a passive user" width="1400" height="905" loading="lazy"></figure>
+      <figure><img src="../assets/img/th/persona-2.webp" alt="Persona: an active user" width="1400" height="905" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="principles">
+    <div class="text">
+      <h2 id="principles">Principles before pixels</h2>
+      <p>When the idea was still loose, my supervisor suggested writing brand guidelines first. The manifesto settled the biggest question: Thryve is an app with game elements, not a game. It set three rules that I later used to judge my own work:</p>
+      <ul>
+        <li>Progress without shame, growth without guilt. Missing a day is never punished.</li>
+        <li>Every action counts, even a glass of water.</li>
+        <li>Play for progression, not perfection. It's play, not competition.</li>
+      </ul>
+      <p>The structure came from the Korean webtoon <i>Solo Leveling</i>, where the hero gets stronger by completing small daily quests. I paired it with motivation research, mainly self-determination theory and the difference between playful and goal-driven game design.</p>
+    </div>
+    <figure class="wide panel">
+      <img src="../assets/img/th/manifesto.webp" alt="Thryve manifesto: Health. Habits. Progress. We believe in the power of play to transform lives." width="1400" height="807" loading="lazy">
+    </figure>
+    <div class="wide pair">
+      <figure><img src="../assets/img/th/colourpalette.webp" alt="Colour palette: mint, indigo, grey and black" width="1400" height="807" loading="lazy" style="border-radius:12px"></figure>
+      <figure><img src="../assets/img/th/logos.webp" alt="Logo development from letter T to the final mark" width="1400" height="807" loading="lazy" style="border-radius:12px"></figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="build">
+    <div class="text">
+      <h2 id="build">Building it for real</h2>
+      <p>I mapped the flow and wireframed the app in Balsamiq, then chose to build it rather than stop at a Figma prototype. Prototypes can't take real text input, so they always feel like a demo. Swift needs a Mac, which I didn't have, so I picked React Native and learned it during the project.</p>
+      <ul class="decisions">
+        <li><b>Real accounts</b><span>Sign-up and log-in connect to an Appwrite database, so new users are created and returning users keep their data.</span></li>
+        <li><b>Questions from the survey</b><span>The first question offers the survey's top three reasons for staying healthy: looks (70%), energy (60%) and feeling good mentally (57%).</span></li>
+        <li><b>Motion from my own tools</b><span>I animated the splash screen in After Effects and dropped it into the build as video. Onboarding animations use Lottie files.</span></li>
+        <li><b>Problems along the way</b><span>Expo Go couldn't preview 3D assets on a phone. The newer video package couldn't hide its playback controls, so I went back to the older one. The onboarding slider's Next button was unreliable, so I removed the progress dots.</span></li>
+      </ul>
+    </div>
+    <figure class="wide panel">
+      <img src="../assets/img/th/userflow.webp" alt="User flow from launch through onboarding, sign-up, questions and the main app" width="2400" height="371" loading="lazy">
+      <figcaption>User flow, from launch to the main app.</figcaption>
+    </figure>
+    <figure class="wide panel" style="max-width:980px">
+      <img src="../assets/img/th/wire-developed.webp" alt="Balsamiq wireframes for sign-in, onboarding, avatar, profile and badge screens" width="1800" height="1405" loading="lazy">
+      <figcaption>Developed wireframes in Balsamiq.</figcaption>
+    </figure>
+    <div class="wide panel panel--void on-void">
+      <div class="row">
+        <figure class="shot"><div class="screen"><img src="../assets/img/th/onboard-1.webp" alt="Onboarding: Track your progress" width="640" height="1390" loading="lazy"></div></figure>
+        <figure class="shot"><div class="screen"><img src="../assets/img/th/onboard-3.webp" alt="Onboarding: Play on" width="640" height="1390" loading="lazy"></div></figure>
+        <figure class="shot"><div class="screen"><img src="../assets/img/th/question-1.webp" alt="Question: What is your main health goal right now?" width="640" height="1385" loading="lazy"></div></figure>
+        <figure class="shot"><div class="screen"><img src="../assets/img/th/question-2.webp" alt="Question: How would you describe your current activity level?" width="640" height="1385" loading="lazy"></div></figure>
+      </div>
+    </div>
+    <p class="text small" style="margin-top:14px">Screenshots of the React Native build.</p>
+  </section>
+
+  <section class="void-band" aria-labelledby="badges">
+    <div class="wrap">
+      <div class="text">
+        <h2 id="badges">Badges: users caught what I missed</h2>
+        <p>My first badges were emblems with wings and sigils. In the first round of feedback, people said they looked militaristic. They were right: that clashed directly with a manifesto about play and inclusion.</p>
+      </div>
+      <figure class="text">
+        <img src="../assets/img/th/badge-emblem.webp" alt="First badge designs in Blender: hexagonal emblems with chevrons and wings" width="1300" height="972" loading="lazy" style="border-radius:10px">
+        <figcaption>Version one, in Blender: rank emblems with chevrons and wings.</figcaption>
+      </figure>
+      <div class="text">
+        <p>I sculpted a small robot in Blender and rebuilt the set around it. The robot grows up as you level up, and the shape behind it gains a corner at each level, so progress shows without a single number:</p>
+      </div>
+      <div class="wide badge-row" style="margin-top:28px">
+        <figure><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/th-robot-1-poster.webp" width="480" height="480" aria-label="Level 1 badge animation"><source src="../assets/video/th-robot-1.mp4" type="video/mp4"></video><figcaption><b>Level 1</b>No eyes yet, holding an entry ticket. Bronze triangle.</figcaption></figure>
+        <figure><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/th-robot-2-poster.webp" width="480" height="480" aria-label="Level 2 badge animation"><source src="../assets/video/th-robot-2.mp4" type="video/mp4"></video><figcaption><b>Level 2</b>Eyes open. Silver square.</figcaption></figure>
+        <figure><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/th-robot-3-poster.webp" width="480" height="480" aria-label="Level 3 badge animation"><source src="../assets/video/th-robot-3.mp4" type="video/mp4"></video><figcaption><b>Level 3</b>Gold outline. Gold pentagon.</figcaption></figure>
+        <figure><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/th-robot-4-poster.webp" width="480" height="480" aria-label="Level 4 badge animation"><source src="../assets/video/th-robot-4.mp4" type="video/mp4"></video><figcaption><b>Level 4</b>Crowned. Hexagon, the top rank.</figcaption></figure>
+      </div>
+      <div class="text" style="margin-top:48px">
+        <p>The robots went down well in the second round of feedback. But people pointed out that the first-login and seven-day badges looked like they belonged to a different app, so I brought them into the same visual language.</p>
+      </div>
+      <div class="wide pair" style="max-width:820px;margin-top:20px">
+        <figure>
+          <p class="label">Before</p>
+          <div class="row" style="background:#fff;border-radius:12px;padding:20px;align-items:center">
+            <img src="../assets/img/th/login-old-1.webp" alt="Old first-login badge: a flat black outline of the number 1" width="277" height="322" loading="lazy" style="max-height:160px;width:auto">
+            <img src="../assets/img/th/login-old-7.webp" alt="Old seven-day badge: a flat black outline of the number 7" width="226" height="270" loading="lazy" style="max-height:160px;width:auto">
+          </div>
+        </figure>
+        <figure>
+          <p class="label">After</p>
+          <div class="row" style="align-items:center">
+            <video data-autoplay muted loop playsinline preload="none" poster="../assets/video/th-login-1-poster.webp" width="480" height="480" aria-label="New first-login badge animation" style="border-radius:12px"><source src="../assets/video/th-login-1.mp4" type="video/mp4"></video>
+            <video data-autoplay muted loop playsinline preload="none" poster="../assets/video/th-login-7-poster.webp" width="480" height="480" aria-label="New seven-day badge animation" style="border-radius:12px"><source src="../assets/video/th-login-7.mp4" type="video/mp4"></video>
+          </div>
+        </figure>
+      </div>
+      <div class="text" style="margin-top:56px">
+        <h3 style="color:#fff">Trading real-time 3D for video</h3>
+        <p>The avatar went the same way as the badges: my first realistic human model didn't fit the playful tone, so I moved to a stylised humanoid. I wanted users to turn and play with it in the app, but React Native only loads .glb files directly, and that format drops the textures and modifiers I'd applied. The libraries that would have fixed this needed more time than I had. So I rendered the avatars as video and embedded them in the build. They look as intended and work on both platforms, but you can't interact with them.</p>
+      </div>
+      <figure class="text">
+        <img src="../assets/img/th/avatars.webp" alt="Avatar development in Blender: a realistic body, a stylised humanoid, and four textured versions" width="1285" height="762" loading="lazy" style="border-radius:10px">
+        <figcaption>From a realistic body to a stylised humanoid, then texture tests.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="review">
+    <div class="text">
+      <h2 id="review">Looking back at the build</h2>
+      <p>Both feedback rounds were about how the badges looked. Nobody tried to complete a task with the app, so I missed problems in how it works. Going back through the finished build, I found these:</p>
+      <div class="review">
+        <div class="review-shot">
+          <div class="screen"><img src="../assets/img/th/home.webp" alt="Home: Hello! What's next? above four menu tiles" width="640" height="1385" loading="lazy"></div>
+          <span class="ring" style="--x:28%;--y:44%;--w:44%;--h:7.5%"></span>
+          <span class="pin" style="--x:79%;--y:47.5%">1</span>
+          <span class="ring" style="--x:6%;--y:52.5%;--w:89%;--h:35%"></span>
+          <span class="pin" style="--x:93%;--y:55%">2</span>
+        </div>
+        <div class="review-notes"><h3>Home: nothing to do today</h3><ol>
+          <li><span class="pin">1</span>The screen asks "What's next?" but never answers. The greeting has a gap where the user's name should be.</li>
+          <li><span class="pin">2</span>The space goes to four menu tiles. The core loop, do a small task and watch your robot grow, isn't on the first screen at all.</li>
+        </ol></div>
+      </div>
+      <div class="review">
+        <div class="review-shot">
+          <div class="screen"><img src="../assets/img/th/profile-level.webp" alt="Profile: XP 5 at the top, XP 1,450 on the level card, and five category bars" width="640" height="1385" loading="lazy"></div>
+          <span class="ring" style="--x:3%;--y:1.5%;--w:24%;--h:5%"></span>
+          <span class="pin" style="--x:32%;--y:4%">1</span>
+          <span class="ring" style="--x:28%;--y:27%;--w:44%;--h:10%"></span>
+          <span class="pin" style="--x:78%;--y:28%">2</span>
+          <span class="ring" style="--x:14%;--y:67.5%;--w:72%;--h:7.5%"></span>
+          <span class="pin" style="--x:90%;--y:70%">3</span>
+        </div>
+        <div class="review-notes"><h3>Profile: progress that doesn't add up</h3><ol>
+          <li><span class="pin">1</span>The top says XP 5.</li>
+          <li><span class="pin">2</span>The card below says XP 1,450, and Level 1.</li>
+          <li><span class="pin">3</span>Rest is already at Level 5, and nothing explains how to level up. The feature meant to make growth visible makes it confusing. The tab that would have let people upgrade their avatar was also left unfinished.</li>
+        </ol></div>
+      </div>
+      <div class="review">
+        <div class="review-shot">
+          <div class="screen"><img src="../assets/img/th/achieve-newbie.webp" alt="Achievements: a single Newbie badge card fills the screen" width="640" height="1385" loading="lazy"></div>
+          <span class="ring" style="--x:8%;--y:19%;--w:84%;--h:64%"></span>
+          <span class="pin" style="--x:90%;--y:21%">1</span>
+        </div>
+        <div class="review-notes"><h3>Achievements: one badge at a time</h3><ol>
+          <li><span class="pin">1</span>Each badge gets a full screen, so you can't see how many you have, what's left, or what to aim for next. Half the survey named badges as the most motivating feature, and this view doesn't use that.</li>
+        </ol></div>
+      </div>
+      <p>The data also challenged one of my own bets. I made the avatar central, but custom avatars came last in the survey (13%). I meant it as a way of showing progress rather than dressing up, but the risk was real. Next time I'd lead with daily quests and make the avatar support them.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="next">
+    <div class="text">
+      <h2 id="next">What I'd change next</h2>
+      <p>These are directions, not finished or tested designs. I'd tackle them in this order, because the home screen carries the core loop.</p>
+      <table class="trace">
+        <thead><tr><th scope="col">Screen</th><th scope="col">Change</th><th scope="col">How I'd measure it</th></tr></thead>
+        <tbody>
+          <tr><td>Home</td><td>Three quests for today at the top, based on the first-question answers. One tap to complete, then the robot reacts and XP goes up. After a missed day: "Starting again is fine."</td><td>Time to finish a first quest, and how many manage it</td></tr>
+          <tr><td>Profile</td><td>One XP number everywhere, with a bar showing XP to the next level. Categories become secondary.</td><td>Can people explain their own level correctly?</td></tr>
+          <tr><td>Achievements</td><td>A grid of every badge, with locked ones showing what it takes to earn them.</td><td>Can people find what the next badge needs?</td></tr>
+          <tr><td>Questions</td><td>A step counter (1 of 2), a smaller decorative ring, and a preview of the quests the answer unlocks.</td><td>Completion rate of the questions</td></tr>
+        </tbody>
+      </table>
+      <p>In a live product I'd also track seven-day return rate and quests completed per day.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="learned">
+    <div class="text">
+      <h2 id="learned">What I learned</h2>
+      <ul class="decisions">
+        <li><b>Users spot it when the work drifts from the principles</b><span>I wrote "play, not competition", then designed military-looking badges. Feedback caught it straight away.</span></li>
+        <li><b>Asking for opinions isn't usability testing</b><span>Impressions told me how the badges looked, not whether the app worked. You have to give people tasks and watch. That's what I did on BudgetBills, and it's what Thryve was missing.</span></li>
+        <li><b>Put the core loop on the first screen</b><span>More features don't help if the main thing you want people to do isn't where they land.</span></li>
+        <li><b>Building it changes the design conversation</b><span>Coding the app showed me constraints, like the .glb limit, that a prototype would have hidden. I now think about how a design will be built while I'm still designing it.</span></li>
+      </ul>
+      <a class="next" href="../ignis-oasis/"><span>Next project</span><b>Ignis Oasis</b></a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap site-foot">
+  <span>© 2026 Tae Hyun Kim</span>
+  <a href="mailto:ericthk.ux@gmail.com">ericthk.ux@gmail.com</a>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
