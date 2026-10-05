@@ -92,6 +92,10 @@ strong { font-weight: 700; }
 /* ---------- home ---------- */
 .hero { padding-block: clamp(40px, 9vw, 120px) clamp(40px, 7vw, 88px); }
 .hero .lede { margin-top: 28px; }
+.hero .display { max-width: none; font-size: min(clamp(32px, 6.6vw, 88px), calc((100vw - 2 * var(--gutter)) / 11.3)); }
+.hero .display span { display: block; }
+.hero .lede { max-width: none; }
+.hero .lede span { display: block; }
 
 .work { border-top: 1px solid var(--rule); }
 .project {
@@ -349,6 +353,8 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
   .results td:first-child { white-space: normal; }
   .timeline li { grid-template-columns: 1fr; gap: 2px; }
   .about .bio p { text-align: left; }
+  .hero .lede { text-wrap: balance; }
+  .hero .lede span { display: inline; }
   .row .screen, .row figure.shot { flex: 0 1 44%; }
   .callout { font-size: 19px; padding: 18px 20px; }
 }
