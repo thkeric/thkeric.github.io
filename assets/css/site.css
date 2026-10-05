@@ -94,7 +94,7 @@ strong { font-weight: 700; }
 .hero .lede { margin-top: 28px; }
 .hero .display { max-width: none; font-size: min(clamp(32px, 6.6vw, 88px), calc((100vw - 2 * var(--gutter)) / 11.3)); }
 .hero .display span { display: block; }
-.hero, .about-intro { container-type: inline-size; }
+.hero { container-type: inline-size; }
 .hero .lede { max-width: none; font-size: min(clamp(19px, 2vw, 23px), calc(100cqi / 34.6)); }
 .lede span { display: block; }
 
@@ -308,7 +308,7 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
 .about-head h1 { grid-area: title; font-size: clamp(48px, 8vw, 104px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.98; }
 .about-head .portrait { grid-area: photo; width: 100%; margin: 0; }
 .about-intro { grid-area: intro; }
-.about-intro .lede { margin: -0.28em 0 0; max-width: none; font-size: min(28px, calc(100cqi / 34.6)); line-height: 1.4; color: var(--ink); letter-spacing: -0.01em; }
+.about-intro .lede { margin: -0.28em 0 0; max-width: none; font-size: clamp(20px, 2.3vw, 30px); line-height: 1.4; color: var(--ink); letter-spacing: -0.01em; }
 .contact-links { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 20px; font-weight: 500; }
 .about { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 88px); padding-top: clamp(40px, 6vw, 72px); }
 .about h2 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 20px; }
@@ -336,7 +336,8 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
   .about { grid-template-columns: 1fr; }
   .about-head { grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "photo" "intro"; row-gap: 24px; }
   .about-head .portrait { width: min(260px, 70%); }
-  .about-intro .lede { margin-top: 0; }
+  .about-intro .lede { margin-top: 0; text-wrap: balance; }
+  .about-intro .lede span { display: inline; }
   .badge-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
@@ -365,5 +366,4 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
   .lede { text-wrap: balance; }
   .lede span { display: inline; }
   .hero .lede { font-size: clamp(17px, 4.6cqi, 19px); }
-  .about-intro .lede { font-size: 20px; }
 }
