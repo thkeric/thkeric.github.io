@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=202610051440">
+<link rel="stylesheet" href="../assets/css/site.css?v=202610051449">
 </head>
 <body>
 <a class="skip" href="#content">Skip to content</a>
@@ -46,30 +46,34 @@
     </div>
   </div>
 
-  <section class="section">
-    <div class="text">
-      <h2>Overview</h2>
+  <section class="chapter rail" aria-labelledby="overview">
+    <header class="chap-head"><span class="chap-no">01</span><h2 id="overview">Overview</h2></header>
+    <div class="lead-text">
       <p>BudgetBills began as a broad budgeting app and narrowed to a single moment: asking a friend to pay you back. A survey of 40 respondents showed that splitting a bill is rarely difficult because of the calculation. It's difficult because someone has to raise it.</p>
       <p>I reduced the scope to four core areas, designed an animated Figma prototype and ran moderated usability tests with three participants. Most tasks were completed without assistance, but no participant could add a card. A post-test review then exposed a gap the tasks couldn't: the bill flow passed every test without addressing the core problem the research had identified.</p>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="research">
-    <div class="text">
-      <h2 id="research">Discovery research</h2>
-      <p>I began with a competitive analysis of four established finance apps, Pocketguard, YNAB, Monzo and Credit Karma, to map their strengths and gaps. I then ran an online survey (40 respondents; 77.5% aged 18 to 24, 52.5% students), followed by three interviews with survey respondents, each given an information sheet and consent form.</p>
-    </div>
-    <figure class="wide panel">
-      <img src="../assets/img/bb/competitors.webp" alt="Competitor analysis table listing pros and cons of Pocketguard, YNAB, Monzo and Credit Karma" width="1366" height="768" loading="lazy">
-      <figcaption>Competitive analysis: strengths and weaknesses of four finance apps.</figcaption>
-    </figure>
-    <div class="text">
-      <div class="figures">
-        <div><b>70%</b><span>of respondents use no finance app beyond their bank's own</span></div>
-        <div><b>77.5%</b><span>want real-time expense tracking, the most requested feature</span></div>
-        <div><b>90%</b><span>want bill splitting integrated with their existing payment method</span></div>
+  <section class="chapter" aria-labelledby="research">
+    <div class="split split--5-7">
+      <div class="prose">
+        <header class="chap-head"><span class="chap-no">02</span><h2 id="research">Discovery research</h2></header>
+        <p>I began with a competitive analysis of four established finance apps, Pocketguard, YNAB, Monzo and Credit Karma, to map their strengths and gaps. I then ran an online survey (40 respondents; 77.5% aged 18 to 24, 52.5% students), followed by three interviews with survey respondents, each given an information sheet and consent form.</p>
       </div>
-      <figure>
+      <figure class="panel flush">
+        <img src="../assets/img/bb/competitors.webp" alt="Competitor analysis table listing pros and cons of Pocketguard, YNAB, Monzo and Credit Karma" width="1366" height="768" loading="lazy">
+        <figcaption>Competitive analysis: strengths and weaknesses of four finance apps.</figcaption>
+      </figure>
+    </div>
+
+    <div class="spread">
+      <div class="stat stat--accent"><b>47.5%</b><span>cited talking about money as a challenge when splitting bills</span></div>
+      <div class="stat stat--muted"><b>20%</b><span>reported regular disputes when splitting bills</span></div>
+      <p class="statement">Users rarely disagree over a split bill; the friction lies in having to ask. The barrier is social, not mathematical.</p>
+    </div>
+
+    <div class="split split--7-5 align-start">
+      <figure class="flush">
         <p class="chart-title">What challenges do you face when splitting a bill? (n=40, multiple choice)</p>
         <ul class="bars" aria-label="Survey results">
           <li class="hl"><span>Talking about money</span><span class="track"><span class="fill" style="--v:47.5%"></span><span class="val" style="--v:47.5%">47.5%</span></span></li>
@@ -79,58 +83,67 @@
           <li><span>Cultural expectations</span><span class="track"><span class="fill" style="--v:27.5%"></span><span class="val" style="--v:27.5%">27.5%</span></span></li>
           <li><span>Affordability</span><span class="track"><span class="fill" style="--v:25%"></span><span class="val" style="--v:25%">25%</span></span></li>
         </ul>
-        <p class="chart-note">By contrast, only 20% reported regular disputes when splitting bills.</p>
       </figure>
-      <div class="callout"><p>Users rarely disagree over a split bill; the friction lies in having to ask. The barrier is social, not mathematical.</p></div>
-      <p>The interviews reinforced the demand for visibility. All three participants reviewed their spending daily and wanted real-time notifications. One asked to see the percentage of their total balance remaining, rather than individual transaction amounts.</p>
-      <p>I synthesised the survey and interview data into three personas and a user journey map, keeping the primary audience, students and young adults newly managing their own finances, at the centre of later design decisions.</p>
+      <div class="stack-figures">
+        <div><b>70%</b><span>of respondents use no finance app beyond their bank's own</span></div>
+        <div><b>77.5%</b><span>want real-time expense tracking, the most requested feature</span></div>
+        <div><b>90%</b><span>want bill splitting integrated with their existing payment method</span></div>
+      </div>
     </div>
-    <div class="wide scroller" role="region" aria-label="Personas" tabindex="0">
-      <img class="flat" src="../assets/img/bb/persona-1.webp" alt="Persona: Jonathan Kirman, 31, UX designer saving to travel" width="1366" height="780" loading="lazy">
-      <img class="flat" src="../assets/img/bb/persona-2.webp" alt="Persona: Molly Lee, 23, fashion student working part time" width="1366" height="780" loading="lazy">
-      <img class="flat" src="../assets/img/bb/persona-3.webp" alt="Persona: Olivia Hammond, 45, freelance developer with two sons" width="1366" height="780" loading="lazy">
+
+    <div class="split split--5-7 align-start persona-split">
+      <div class="prose">
+        <h3>From data to people</h3>
+        <p>The interviews reinforced the demand for visibility. All three participants reviewed their spending daily and wanted real-time notifications. One asked to see the percentage of their total balance remaining, rather than individual transaction amounts.</p>
+        <p>I synthesised the survey and interview data into three personas and a user journey map, keeping the primary audience, students and young adults newly managing their own finances, at the centre of later design decisions.</p>
+      </div>
+      <div class="scroller" role="region" aria-label="Personas" tabindex="0">
+        <img class="flat" src="../assets/img/bb/persona-2.webp" alt="Persona: Molly Lee, 23, fashion student working part time" width="1366" height="780" loading="lazy">
+        <img class="flat" src="../assets/img/bb/persona-1.webp" alt="Persona: Jonathan Kirman, 31, UX designer saving to travel" width="1366" height="780" loading="lazy">
+        <img class="flat" src="../assets/img/bb/persona-3.webp" alt="Persona: Olivia Hammond, 45, freelance developer with two sons" width="1366" height="780" loading="lazy">
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="scope">
-    <div class="text">
-      <h2 id="scope">Defining the scope</h2>
+  <section class="chapter rail" aria-labelledby="scope">
+    <div class="prose sticky">
+      <header class="chap-head"><span class="chap-no">03</span><h2 id="scope">Defining the scope</h2></header>
       <p>The initial information architecture tried to cover everything: budgets, transactions, monthly reports, leaderboards and recommendations. Tutor feedback on the first submission identified the scope as too broad, and with four weeks remaining for the prototype, I agreed.</p>
       <p>I restructured the app around four core areas centred on bill splitting: Home, Budget, Bill and Cards. Leaderboards, monthly reports and investment features were removed from scope.</p>
     </div>
-    <div class="wide pair">
-      <figure><p class="label">Before</p><img src="../assets/img/bb/ia-before.webp" alt="First information architecture with Home, Budget, Transactions and Monthly Reports branches" width="1600" height="900" loading="lazy"></figure>
-      <figure><p class="label">After</p><img src="../assets/img/bb/ia-after.webp" alt="Revised information architecture with Home, Budget, Bill and Cards branches" width="1100" height="619" loading="lazy"></figure>
+    <div class="ia-stack">
+      <figure class="flush"><p class="label">Before</p><img src="../assets/img/bb/ia-before.webp" alt="First information architecture with Home, Budget, Transactions and Monthly Reports branches" width="1600" height="900" loading="lazy"></figure>
+      <figure class="flush"><p class="label">After: four core areas</p><img src="../assets/img/bb/ia-after.webp" alt="Revised information architecture with Home, Budget, Bill and Cards branches" width="1100" height="619" loading="lazy"></figure>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="sketch">
-    <div class="text">
-      <h2 id="sketch">Ideation and wireframes</h2>
-      <p>I explored layouts through paper sketches, mapped the end-to-end user flow, and built mid-fidelity wireframes in Balsamiq before moving to high fidelity in Figma.</p>
-    </div>
-    <div class="wide row">
-      <figure class="shot"><img src="../assets/img/bb/sketch-2.webp" alt="Hand sketch of the card screen" width="900" height="1288" loading="lazy"><figcaption>Paper sketches</figcaption></figure>
-      <figure class="shot" style="flex-basis:520px"><img src="../assets/img/bb/userflow.webp" alt="User flow diagram from opening the app through budget, transactions, reports and profile" width="1400" height="1449" loading="lazy"><figcaption>User flow</figcaption></figure>
-    </div>
-    <figure class="wide panel" style="max-width:980px">
+  <section class="chapter" aria-labelledby="sketch">
+    <figure class="overlay">
       <img src="../assets/img/bb/wire-map.webp" alt="Balsamiq wireframes connected by arrows: sign up, home dashboard, profile, notifications, transactions, budget and spending" width="2000" height="1947" loading="lazy">
-      <figcaption>Mid-fidelity wireframes in Balsamiq. At this stage, the home screen still included a bottom navigation bar.</figcaption>
+      <div class="overlay-card">
+        <header class="chap-head"><span class="chap-no">04</span><h2 id="sketch">Ideation and wireframes</h2></header>
+        <p>I explored layouts through paper sketches, mapped the end-to-end user flow, and built mid-fidelity wireframes in Balsamiq before moving to high fidelity in Figma.</p>
+        <p class="small">At this stage, the home screen still included a bottom navigation bar.</p>
+      </div>
     </figure>
+    <div class="split split--5-7 align-start" style="margin-top:clamp(24px,3vw,40px)">
+      <figure class="flush"><img src="../assets/img/bb/sketch-2.webp" alt="Hand sketch of the card screen" width="900" height="1288" loading="lazy" class="rounded"><figcaption>Paper sketches</figcaption></figure>
+      <figure class="flush"><img src="../assets/img/bb/userflow.webp" alt="User flow diagram from opening the app through budget, transactions, reports and profile" width="1400" height="1449" loading="lazy" class="rounded"><figcaption>End-to-end user flow</figcaption></figure>
+    </div>
   </section>
 
-  <section class="section" aria-labelledby="decisions">
-    <div class="text">
-      <h2 id="decisions">Design decisions</h2>
-      <ul class="decisions">
-        <li><b>A darker, more trustworthy palette</b><span>All three interviewees preferred deep blues and greens, and one suggested a darker shade of the initial blue (#4F86C6) would better suit a finance app. I moved to a deep teal.</span></li>
-        <li><b>No bottom navigation bar</b><span>Financial screens need space for data, so I replaced the tab bar with a top text menu and a summary sheet that slides up from the bottom. Participants were initially surprised but reported no negative impact on their experience.</span></li>
-        <li><b>Bento grid layout</b><span>The home screen and side menu use a bento-style grid of consistent tiles, helping users learn the layout quickly.</span></li>
-        <li><b>Feature-led onboarding</b><span>Four onboarding screens introduce each core area: transactions, cards, bill splitting and budgets. An animated logo splash precedes them and masks loading time.</span></li>
-      </ul>
-    </div>
-    <div class="wide panel panel--bb">
-      <div class="row">
+  <section class="band band--bb" aria-labelledby="decisions">
+    <div class="wrap">
+      <div class="rail">
+        <header class="chap-head"><span class="chap-no">05</span><h2 id="decisions">Design decisions</h2></header>
+        <ul class="decisions decisions--grid">
+          <li><b>A darker, more trustworthy palette</b><span>All three interviewees preferred deep blues and greens, and one suggested a darker shade of the initial blue (#4F86C6) would better suit a finance app. I moved to a deep teal.</span></li>
+          <li><b>No bottom navigation bar</b><span>Financial screens need space for data, so I replaced the tab bar with a top text menu and a summary sheet that slides up from the bottom. Participants were initially surprised but reported no negative impact on their experience.</span></li>
+          <li><b>Bento grid layout</b><span>The home screen and side menu use a bento-style grid of consistent tiles, helping users learn the layout quickly.</span></li>
+          <li><b>Feature-led onboarding</b><span>Four onboarding screens introduce each core area: transactions, cards, bill splitting and budgets. An animated logo splash precedes them and masks loading time.</span></li>
+        </ul>
+      </div>
+      <div class="screen-row">
         <figure class="shot"><div class="screen"><img src="../assets/img/bb/splash.webp" alt="Splash screen with the BudgetBills logo" width="640" height="1387" loading="lazy"></div><figcaption>Splash</figcaption></figure>
         <figure class="shot"><div class="screen"><img src="../assets/img/bb/onboard-1.webp" alt="Onboarding: view transactions" width="640" height="1387" loading="lazy"></div><figcaption>Onboarding</figcaption></figure>
         <figure class="shot"><div class="screen"><img src="../assets/img/bb/home.webp" alt="Home with recent transactions and reward points" width="640" height="1387" loading="lazy"></div><figcaption>Home summary sheet</figcaption></figure>
@@ -139,19 +152,22 @@
     </div>
   </section>
 
-  <section class="section" aria-labelledby="prototype">
-    <div class="text">
-      <h2 id="prototype">High-fidelity prototype</h2>
-      <p>This was my first project in Figma, including its animation features. The splash and onboarding sequences took longer than planned, but the splash screen was praised repeatedly in testing for being simple yet polished. The clips below are recorded from the prototype.</p>
-    </div>
-    <div class="wide panel panel--bb">
-      <div class="row">
-        <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-first-run-poster.webp" width="356" height="780" aria-label="Prototype recording: splash, onboarding and sign-up"><source src="../assets/video/bb-first-run.mp4" type="video/mp4"></video></div><figcaption>First run</figcaption></figure>
-        <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-split-poster.webp" width="356" height="780" aria-label="Prototype recording: sending £20 to a friend"><source src="../assets/video/bb-split.mp4" type="video/mp4"></video></div><figcaption>Sending funds</figcaption></figure>
-        <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-budget-poster.webp" width="356" height="780" aria-label="Prototype recording: setting a budget with a slider"><source src="../assets/video/bb-budget.mp4" type="video/mp4"></video></div><figcaption>Setting a budget</figcaption></figure>
+  <section class="chapter" aria-labelledby="prototype">
+    <div class="split split--7-5">
+      <div class="panel panel--bb">
+        <div class="clip-row">
+          <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-first-run-poster.webp" width="356" height="780" aria-label="Prototype recording: splash, onboarding and sign-up"><source src="../assets/video/bb-first-run.mp4" type="video/mp4"></video></div><figcaption>First run</figcaption></figure>
+          <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-split-poster.webp" width="356" height="780" aria-label="Prototype recording: sending £20 to a friend"><source src="../assets/video/bb-split.mp4" type="video/mp4"></video></div><figcaption>Sending funds</figcaption></figure>
+          <figure class="shot"><div class="screen"><video data-autoplay muted loop playsinline preload="none" poster="../assets/video/bb-budget-poster.webp" width="356" height="780" aria-label="Prototype recording: setting a budget with a slider"><source src="../assets/video/bb-budget.mp4" type="video/mp4"></video></div><figcaption>Setting a budget</figcaption></figure>
+        </div>
+      </div>
+      <div class="prose">
+        <header class="chap-head"><span class="chap-no">06</span><h2 id="prototype">High-fidelity prototype</h2></header>
+        <p>This was my first project in Figma, including its animation features. The splash and onboarding sequences took longer than planned, but the splash screen was praised repeatedly in testing for being simple yet polished.</p>
+        <p class="small">Clips recorded from the Figma prototype.</p>
       </div>
     </div>
-    <div class="wide scroller" role="region" aria-label="More prototype screens" tabindex="0" style="margin-top:24px">
+    <div class="scroller" role="region" aria-label="More prototype screens" tabindex="0" style="margin-top:clamp(28px,4vw,48px)">
       <div class="screen"><img src="../assets/img/bb/home-top.webp" alt="Home with a carousel of shortcuts and a credit score card" width="640" height="1387" loading="lazy"></div>
       <div class="screen"><img src="../assets/img/bb/bill-2.webp" alt="Bill history with Send Funds and Request Funds buttons" width="640" height="1387" loading="lazy"></div>
       <div class="screen"><img src="../assets/img/bb/bill-3.webp" alt="Send funds: choose a friend, amount and payment type" width="640" height="1387" loading="lazy"></div>
@@ -163,36 +179,43 @@
     </div>
   </section>
 
-  <section class="section" aria-labelledby="testing">
-    <div class="text">
-      <h2 id="testing">Usability testing</h2>
-      <p>I recruited three survey respondents with low, moderate and high experience of finance apps. Each moderated remote session lasted around 15 minutes, with participants sharing both their screen and camera so I could observe interactions and reactions. A task counted as successful only if completed without assistance.</p>
-      <table class="results">
-        <thead><tr><th scope="col">Task</th><th scope="col">Success rate</th><th scope="col">Observation</th></tr></thead>
-        <tbody>
-          <tr><td>Use the chatbot</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>Each response navigated to a different tab, forcing participants to return to the chat repeatedly.</td></tr>
-          <tr><td>Turn on notifications</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>All participants valued real-time alerts and asked to see an example notification.</td></tr>
-          <tr><td>Find badges</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot miss"></i></span>2/3</td><td>Participants expected badges in the Rewards panel rather than the profile.</td></tr>
-          <tr class="fail"><td>Add a new card</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot miss"></i><i class="dot miss"></i><i class="dot miss"></i></span>0/3</td><td>No participant recognised the top-left scan icon as the entry point for adding a card.</td></tr>
-          <tr><td>Set a budget</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>One participant initially struggled to locate the budget slider.</td></tr>
-          <tr><td>Send funds (split a bill)</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>One participant requested a quick-send shortcut on the home screen.</td></tr>
-        </tbody>
-      </table>
-      <p>On visual design, participants described the app as professional, readable and neat. The most constructive critique was <q>readable and neat but no character to show brand</q>. Participants also noted inconsistent icon sizes and excess spacing beneath the summary sheet.</p>
+  <section class="chapter" aria-labelledby="testing">
+    <div class="split split--4-8 align-start">
+      <div class="prose">
+        <header class="chap-head"><span class="chap-no">07</span><h2 id="testing">Usability testing</h2></header>
+        <p>I recruited three survey respondents with low, moderate and high experience of finance apps. Each moderated remote session lasted around 15 minutes, with participants sharing both their screen and camera so I could observe interactions and reactions. A task counted as successful only if completed without assistance.</p>
+        <figure class="flush notes">
+          <img src="../assets/img/bb/test-notes.webp" alt="Handwritten test notes with an overall score of 8 out of 10 and comments about colour and branding" width="725" height="1024" loading="lazy" class="rounded">
+          <figcaption>Session notes from one participant.</figcaption>
+        </figure>
+      </div>
+      <div>
+        <table class="results">
+          <thead><tr><th scope="col">Task</th><th scope="col">Success rate</th><th scope="col">Observation</th></tr></thead>
+          <tbody>
+            <tr><td>Use the chatbot</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>Each response navigated to a different tab, forcing participants to return to the chat repeatedly.</td></tr>
+            <tr><td>Turn on notifications</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>All participants valued real-time alerts and asked to see an example notification.</td></tr>
+            <tr><td>Find badges</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot miss"></i></span>2/3</td><td>Participants expected badges in the Rewards panel rather than the profile.</td></tr>
+            <tr class="fail"><td>Add a new card</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot miss"></i><i class="dot miss"></i><i class="dot miss"></i></span>0/3</td><td>No participant recognised the top-left scan icon as the entry point for adding a card.</td></tr>
+            <tr><td>Set a budget</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>One participant initially struggled to locate the budget slider.</td></tr>
+            <tr><td>Send funds (split a bill)</td><td class="score"><span class="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>3/3</td><td>One participant requested a quick-send shortcut on the home screen.</td></tr>
+          </tbody>
+        </table>
+        <blockquote class="quote">
+          <p>“Readable and neat but no character to show brand.”</p>
+          <footer>Participant 3, on the visual design</footer>
+        </blockquote>
+        <p class="after-quote">Participants described the app as professional, readable and neat, but also noted inconsistent icon sizes and excess spacing beneath the summary sheet.</p>
+      </div>
     </div>
-    <figure class="text">
-      <img src="../assets/img/bb/test-notes.webp" alt="Handwritten test notes with an overall score of 8 out of 10 and comments about colour and branding" width="725" height="1024" loading="lazy" style="width:min(380px,100%);border-radius:8px">
-      <figcaption>Session notes from one participant.</figcaption>
-    </figure>
   </section>
 
-  <section class="section" aria-labelledby="review">
-    <div class="text">
-      <h2 id="review">Design review: where v1 fell short</h2>
-      <p>After testing, I reviewed each screen against the test results and survey data. Three issues stood out.</p>
+  <section class="chapter" aria-labelledby="review">
+    <div class="rail rail--intro">
+      <header class="chap-head"><span class="chap-no">08</span><h2 id="review">Design review: where v1 fell short</h2></header>
+      <p class="lead-line">After testing, I reviewed each screen against the test results and survey data. Three issues stood out.</p>
     </div>
-
-    <div class="text">
+    <div class="reviews">
       <div class="review">
         <div class="review-shot">
           <div class="screen"><img src="../assets/img/bb/card.webp" alt="Card screen. The only way to add a card is a barcode-scan icon in the top-left corner." width="640" height="1387" loading="lazy"></div>
@@ -206,7 +229,7 @@
         </ol></div>
       </div>
 
-      <div class="review">
+      <div class="review review--flip">
         <div class="review-shot">
           <div class="screen"><img src="../assets/img/bb/home-top.webp" alt="Home screen. A credit score card with question marks fills the middle; spending is hidden in a collapsed sheet at the bottom." width="640" height="1387" loading="lazy"></div>
           <span class="ring" style="--x:9%;--y:32%;--w:84%;--h:33%"></span>
@@ -236,44 +259,46 @@
     </div>
   </section>
 
-  <section class="section" aria-labelledby="next">
-    <div class="text">
-      <h2 id="next">Next iteration</h2>
-      <p>These changes haven't yet been designed or tested. Each is tied to the evidence behind it and a metric to validate it.</p>
-      <h3>A split flow that asks on the user's behalf</h3>
-      <ol>
+  <section class="band band--tint" aria-labelledby="next">
+    <div class="wrap">
+      <div class="rail rail--intro">
+        <header class="chap-head"><span class="chap-no">09</span><h2 id="next">Next iteration</h2></header>
+        <p class="lead-line">These changes haven't yet been designed or tested. Each is tied to the evidence behind it and a metric to validate it.</p>
+      </div>
+      <h3 class="flow-title">A split flow that asks on the user's behalf</h3>
+      <ol class="steps">
         <li>The user pays by card as usual.</li>
         <li>They tap <b>Split</b> on the transaction, so splitting is built into the payment flow (requested by 90% of respondents).</li>
         <li>They select who was there, and BudgetBills divides the amount evenly or by item.</li>
         <li>BudgetBills sends the request in a neutral, app-authored message, so no one has to word an awkward ask.</li>
         <li>Payment status is tracked, and polite reminders are sent automatically.</li>
       </ol>
-      <table class="trace">
-        <thead><tr><th scope="col">Problem</th><th scope="col">Evidence</th><th scope="col">Proposed change</th><th scope="col">Success metric</th></tr></thead>
-        <tbody>
-          <tr><td>Asking for money is uncomfortable</td><td>47.5% of survey respondents</td><td>Split from the transaction; the app sends requests and reminders</td><td>Perceived discomfort (1 to 7 scale), before and after</td></tr>
-          <tr><td>Card entry point not discoverable</td><td>0/3 task success</td><td>A labelled "Add card" button, also under Manage Card</td><td>Unassisted task success rate</td></tr>
-          <tr><td>Spending not visible</td><td>77.5% want real-time tracking</td><td>Monthly spend and remaining budget (%) at the top of Home</td><td>Accuracy when asked for remaining budget</td></tr>
-          <tr><td>Badges hard to locate</td><td>2/3 task success</td><td>Consolidate badges into Rewards with a single entry point</td><td>Unassisted task success rate</td></tr>
-          <tr><td>Weak brand character</td><td>Participant feedback</td><td>One accent colour, stronger contrast, consistent icon sizing</td><td>Repeat the visual design questions</td></tr>
-        </tbody>
-      </table>
-      <p>For a live product, I'd also track split-request completion rate, time to repayment, and adoption of Split from transactions.</p>
+      <div class="table-card">
+        <table class="trace">
+          <thead><tr><th scope="col">Problem</th><th scope="col">Evidence</th><th scope="col">Proposed change</th><th scope="col">Success metric</th></tr></thead>
+          <tbody>
+            <tr><td>Asking for money is uncomfortable</td><td>47.5% of survey respondents</td><td>Split from the transaction; the app sends requests and reminders</td><td>Perceived discomfort (1 to 7 scale), before and after</td></tr>
+            <tr><td>Card entry point not discoverable</td><td>0/3 task success</td><td>A labelled "Add card" button, also under Manage Card</td><td>Unassisted task success rate</td></tr>
+            <tr><td>Spending not visible</td><td>77.5% want real-time tracking</td><td>Monthly spend and remaining budget (%) at the top of Home</td><td>Accuracy when asked for remaining budget</td></tr>
+            <tr><td>Badges hard to locate</td><td>2/3 task success</td><td>Consolidate badges into Rewards with a single entry point</td><td>Unassisted task success rate</td></tr>
+            <tr><td>Weak brand character</td><td>Participant feedback</td><td>One accent colour, stronger contrast, consistent icon sizing</td><td>Repeat the visual design questions</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="after-table">For a live product, I'd also track split-request completion rate, time to repayment, and adoption of Split from transactions.</p>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="learned">
-    <div class="text">
-      <h2 id="learned">Key learnings</h2>
-      <ul class="decisions">
-        <li><b>Task success doesn't equal problem solved</b><span>Usability testing shows whether users can complete a flow. I now separately verify that each flow addresses the problem the research identified.</span></li>
-        <li><b>Icons rely on users' existing mental models</b><span>A barcode signals scanning a product. Bank cards don't carry barcodes, so the icon couldn't communicate its function, however well it was drawn.</span></li>
-        <li><b>Focused scope improves quality</b><span>Four core areas executed well delivered more than a broad feature set done thinly.</span></li>
-        <li><b>Small samples can still surface clear signals</b><span>Three participants can't validate a design, but when all three fail at the same step, it's the clear first priority.</span></li>
-      </ul>
-      <p class="small">Persona photos are AI-generated placeholders, and some interface elements use Figma community UI kits. Third-party brand logos on the home screen have been replaced with neutral monograms.</p>
-      <a class="next" href="../thryve/"><span>Next case study</span><b>Thryve</b></a>
-    </div>
+  <section class="chapter" aria-labelledby="learned">
+    <header class="chap-head"><span class="chap-no">10</span><h2 id="learned">Key learnings</h2></header>
+    <ul class="lessons">
+      <li><b>Task success doesn't equal problem solved</b><span>Usability testing shows whether users can complete a flow. I now separately verify that each flow addresses the problem the research identified.</span></li>
+      <li><b>Icons rely on users' existing mental models</b><span>A barcode signals scanning a product. Bank cards don't carry barcodes, so the icon couldn't communicate its function, however well it was drawn.</span></li>
+      <li><b>Focused scope improves quality</b><span>Four core areas executed well delivered more than a broad feature set done thinly.</span></li>
+      <li><b>Small samples can still surface clear signals</b><span>Three participants can't validate a design, but when all three fail at the same step, it's the clear first priority.</span></li>
+    </ul>
+    <p class="small disclosure">Persona photos are AI-generated placeholders, and some interface elements use Figma community UI kits. Third-party brand logos on the home screen have been replaced with neutral monograms.</p>
+    <a class="next" href="../thryve/"><span>Next case study</span><b>Thryve</b></a>
   </section>
 </main>
 
@@ -281,6 +306,6 @@
   <span>© 2026 Tae Hyun Kim</span>
   <span class="foot-links"><a href="mailto:ericthk.ux@gmail.com">ericthk.ux@gmail.com</a><a href="https://www.linkedin.com/in/erickimux/" rel="me">LinkedIn</a></span>
 </footer>
-<script src="../assets/js/site.js?v=202610051440" defer></script>
+<script src="../assets/js/site.js?v=202610051449" defer></script>
 </body>
 </html>
