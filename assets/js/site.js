@@ -166,3 +166,59 @@
   }, { passive: true });
   check();
 })();
+
+// Section indicator: a dot per numbered chapter, fixed on the right.
+// The dot for the section in the middle of the screen stretches into a pill.
+(function () {
+  var heads = Array.prototype.slice.call(document.querySelectorAll(".chap-head h2[id]"));
+  if (heads.length < 3 || !("IntersectionObserver" in window)) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var nav = document.createElement("nav");
+  nav.className = "section-rail";
+  nav.setAttribute("aria-label", "Sections on this page");
+  var list = document.createElement("ol");
+  var items = heads.map(function (h, i) {
+    var section = h.closest("section") || h;
+    var li = document.createElement("li");
+    var a = document.createElement("a");
+    a.href = "#" + h.id;
+    var num = (i + 1 < 10 ? "0" : "") + (i + 1);
+    a.innerHTML = '<span class="rail-label"><span class="rail-num">' + num + "</span>" + h.textContent + '</span><span class="rail-dot" aria-hidden="true"></span>';
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      section.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      history.replaceState(null, "", "#" + h.id);
+    });
+    li.appendChild(a);
+    list.appendChild(li);
+    return { section: section, link: a };
+  });
+  nav.appendChild(list);
+  document.body.appendChild(nav);
+
+  function setActive(idx) {
+    items.forEach(function (it, k) {
+      if (k === idx) it.link.setAttribute("aria-current", "true");
+      else it.link.removeAttribute("aria-current");
+    });
+  }
+  var visible = new Map();
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible.set(e.target, e.isIntersecting); });
+    var idx = -1;
+    items.forEach(function (it, k) { if (visible.get(it.section)) idx = k; });
+    setActive(idx);
+  }, { rootMargin: "-45% 0px -54% 0px" });
+  items.forEach(function (it) { io.observe(it.section); });
+
+  // Show the rail once the reader has moved past the page header.
+  var first = items[0].section, ticking = false;
+  function check() {
+    ticking = false;
+    nav.classList.toggle("is-visible", first.getBoundingClientRect().top < window.innerHeight * 0.9);
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(check); }
+  }, { passive: true });
+  check();
+})();

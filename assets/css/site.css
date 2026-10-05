@@ -666,6 +666,28 @@ figure.flush { margin: 0; }
 @media print { .to-top { display: none; } }
 @media (max-width: 640px) { .site-foot { padding-bottom: 96px; } }
 
+/* section indicator */
+.section-rail { position: fixed; right: clamp(10px, 1.6vw, 26px); top: 50%; transform: translateY(-50%); z-index: 15; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.section-rail.is-visible { opacity: 1; pointer-events: auto; }
+.section-rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.section-rail a { position: relative; display: flex; align-items: center; justify-content: flex-end; width: 28px; min-height: 18px; text-decoration: none; }
+.rail-dot { display: block; width: 10px; height: 10px; border-radius: 99px; background: rgba(21, 27, 35, 0.32); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9); transition: height .35s cubic-bezier(.2, .8, .2, 1), background .25s ease, width .25s ease; margin-right: 9px; }
+.section-rail a:hover .rail-dot { background: var(--ink); }
+.section-rail a[aria-current="true"] .rail-dot { height: 30px; background: var(--pin); }
+.rail-label { position: absolute; right: 34px; top: 50%; transform: translate(6px, -50%); white-space: nowrap; background: var(--ink); color: #fff; font-size: 13px; font-weight: 500; line-height: 1; padding: 8px 10px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.rail-num { color: #a3abb7; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.section-rail a:hover .rail-label, .section-rail a:focus-visible .rail-label { opacity: 1; transform: translate(0, -50%); }
+.section-rail a:focus-visible { outline: none; }
+.section-rail a:focus-visible .rail-dot { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--pin); }
+@media (max-width: 1100px) { .section-rail { display: none; } }
+@media (prefers-reduced-motion: reduce) { .rail-dot, .rail-label, .section-rail { transition: none; } }
+@media print { .section-rail { display: none; } }
+
+.sketch-flow > figure:first-child { position: sticky; top: 32px; }
+.zoom { display: block; cursor: zoom-in; }
+.zoom:hover img { outline: 2px solid var(--pin); outline-offset: 3px; }
+@media (max-width: 900px) { .sketch-flow > figure:first-child { position: static; } }
+
 /* Too narrow to keep each phrase on one line: let the text wrap evenly */
 @container (max-width: 640px) {
   .lede { text-wrap: balance; }
