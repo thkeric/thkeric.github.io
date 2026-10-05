@@ -714,10 +714,11 @@ body.home-dark { background: #000; color: #e9ecf1; }
 .home-dark .site-head, .home-dark main, .home-dark .site-foot { position: relative; z-index: 1; }
 
 .intro { position: relative; overflow: hidden; overflow: clip; min-height: calc(100svh - 76px); display: flex; flex-direction: column; justify-content: center; padding-block: 96px 120px; }
-.intro-name { position: relative; z-index: 2; margin: 0; font-size: clamp(56px, 14.2vw, 220px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; color: #f1f3f5; text-align: center; white-space: nowrap; user-select: none; pointer-events: none; text-shadow: 0 0 60px rgba(150, 170, 255, 0.18); }
+.intro-name { position: relative; z-index: 2; margin: 0; font-size: clamp(56px, 14.2vw, 220px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; color: #f1f3f5; text-align: center; white-space: nowrap; user-select: none; pointer-events: none; }
 .intro-name .nm-line { display: block; }
 .intro-name .nm-mask { display: inline-block; overflow: hidden; padding: 0.04em 0.01em 0.1em; margin: -0.04em -0.01em -0.1em; vertical-align: top; }
-.intro-name .nm-ch { display: inline-block; will-change: transform; }
+.intro-name .nm-ch { display: inline-block; }
+.intro-name.is-revealed .nm-mask { overflow: visible; }
 .intro-name .nm-sp { display: inline-block; width: 0.22em; }
 
 /* no-JS: notes read as a simple list under the name */

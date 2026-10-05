@@ -242,13 +242,15 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
 
   /* ---------- home name: letters, sizing, entrance, lift ---------- */
   var nameEl = document.querySelector(".intro-name");
-  var letters = [], centres = null;
+  var letters = [], centres = null, built = false;
   function buildName() {
     if (!nameEl) return;
     var full = nameEl.getAttribute("data-name");
     nameEl.setAttribute("aria-label", full);
     var lines = narrow.matches ? ["Tae Hyun", "Kim"] : [full];
     nameEl.innerHTML = ""; letters = [];
+    if (built) nameEl.classList.add("is-revealed");
+    built = true;
     lines.forEach(function (text) {
       var line = document.createElement("span");
       line.className = "nm-line"; line.setAttribute("aria-hidden", "true");
@@ -272,17 +274,23 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
       widest = Math.max(widest, r.getBoundingClientRect().width);
     });
     var box = nameEl.parentNode.clientWidth;
-    var size = Math.min(box / widest * 100, window.innerHeight * (narrow.matches ? 0.2 : 0.3));
-    nameEl.style.fontSize = (size * (narrow.matches ? 1 : 0.86)).toFixed(1) + "px";
+    // leave room for the planets to circle the name on every screen size
+    var target = narrow.matches ? ((box / 2 - 18) * 0.82 - 24) * 2 : box * 0.62;
+    var size = Math.min(target / widest * 100, window.innerHeight * (narrow.matches ? 0.14 : 0.19));
+    nameEl.style.fontSize = size.toFixed(1) + "px";
     centres = null;
   }
   if (nameEl) {
     buildName();
     if (!reduce && nameEl.animate) {
-      letters.forEach(function (l, i) {
-        l.el.animate([{ transform: "translateY(105%)" }, { transform: "translateY(0)" }],
+      var anims = letters.map(function (l, i) {
+        return l.el.animate([{ transform: "translateY(105%)" }, { transform: "translateY(0)" }],
           { duration: 900, delay: 120 + i * 45, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
       });
+      var lastAnim = anims[anims.length - 1];
+      if (lastAnim) lastAnim.onfinish = function () { nameEl.classList.add("is-revealed"); };
+    } else {
+      nameEl.classList.add("is-revealed");
     }
     if (finePointer && !reduce) hooks.push(function () {
       if (!centres) centres = letters.map(function (l) {
@@ -307,7 +315,7 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
   function makeSystem(root, index) {
     var centreEl = root.querySelector("[data-orbit-centre]");
     var mode = root.getAttribute("data-orbit");
-    var sys = { root: root, centreEl: centreEl, mode: mode, speed: reduce ? 0 : 1, open: null, closeT: null, openedAt: 0, geo: null, visible: true };
+    var sys = { root: root, centreEl: centreEl, mode: mode, rings: root.getAttribute("data-rings") !== "false", speed: reduce ? 0 : 1, open: null, closeT: null, openedAt: 0, geo: null, visible: true };
     sys.notes = Array.prototype.slice.call(root.querySelectorAll(".note")).map(function (li, i) {
       var pin = li.querySelector(".note-pin"), card = li.querySelector(".note-card");
       pin.querySelector(".planet-body").style.setProperty("--s", SIZES[i % SIZES.length] + "px");
@@ -318,30 +326,57 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
 
     sys.geometry = function () {
       var rb = root.getBoundingClientRect(), cb = centreEl.getBoundingClientRect();
-      var cx = cb.left + cb.width / 2, cy = cb.top + cb.height / 2;
-      var maxRx = Math.min(cx - rb.left, rb.right - cx) - (narrow.matches ? 22 : 34);
-      var ratio, minRx;
-      if (mode === "name") {
-        ratio = narrow.matches ? Math.max(0.95, Math.min(1.4, (rb.height - 200) / rb.width * 0.75))
-                               : Math.max(0.4, Math.min(1.05, (rb.height / rb.width) * 0.5));
-        minRx = narrow.matches ? maxRx * 0.42 : Math.max(maxRx * 0.42, cb.height * 0.9 / ratio);
-      } else {
-        var maxRy = Math.min(cy - rb.top, rb.bottom - cy) - 26;
-        ratio = Math.max(0.45, Math.min(1, maxRy / maxRx));
-        minRx = Math.min(maxRx * 0.8, cb.width / 2 + 44);
+      var lines = centreEl.querySelectorAll(".nm-line");
+      if (lines.length) {
+        // measure the glyphs themselves, not the full-width heading box
+        var L = Infinity, T = Infinity, R = -Infinity, B = -Infinity;
+        Array.prototype.forEach.call(lines, function (l) {
+          var rg = document.createRange(); rg.selectNodeContents(l);
+          var r = rg.getBoundingClientRect();
+          L = Math.min(L, r.left); T = Math.min(T, r.top); R = Math.max(R, r.right); B = Math.max(B, r.bottom);
+        });
+        cb = { left: L, top: T, width: R - L, height: B - T };
       }
-      var n = sys.notes.length;
-      sys.geo = { cx: cx, cy: cy, ratio: ratio, left: rb.left, top: rb.top, bottom: rb.bottom,
-        radii: sys.notes.map(function (_, i) { return minRx + (maxRx - minRx) * (i / Math.max(1, n - 1)); }) };
+      var cx = cb.left + cb.width / 2, cy = cb.top + cb.height / 2;
+      var n = sys.notes.length, orbits = [];
+      if (mode === "name") {
+        // Every orbit encloses the name with clearance, so planets circle it
+        // and never pass behind or over it.
+        var pad = narrow.matches ? 24 : 36, edge = narrow.matches ? 18 : 30;
+        var aM = cb.width / 2 + pad, bM = cb.height / 2 + pad;
+        var foot = root.querySelector(".intro-foot");
+        var footTop = foot ? foot.getBoundingClientRect().top : rb.bottom;
+        var Hh = Math.min(cx - rb.left, rb.right - cx) - edge;
+        var Hv = Math.min(cy - rb.top, footTop - cy) - edge;
+        var ryMin = Math.max(bM * 1.15, bM / Math.sqrt(Math.max(0.04, 1 - Math.pow(Math.min(0.98, aM / Hh), 2))));
+        var ryMax = Math.max(ryMin + 8, Hv);
+        for (var i = 0; i < n; i++) {
+          var t = i / Math.max(1, n - 1);
+          var ry = ryMin + (ryMax - ryMin) * t;
+          var need = aM / Math.sqrt(Math.max(0.04, 1 - Math.pow(Math.min(0.98, bM / ry), 2)));
+          var rx = Math.min(Hh, need + Math.max(0, Hh - need) * (0.2 + 0.6 * t));
+          orbits.push([rx, ry]);
+        }
+      } else {
+        var maxRx = Math.min(cx - rb.left, rb.right - cx) - (narrow.matches ? 22 : 34);
+        var maxRy = Math.min(cy - rb.top, rb.bottom - cy) - 26;
+        var ratio = Math.max(0.45, Math.min(1, maxRy / maxRx));
+        var minRx = Math.min(maxRx * 0.8, cb.width / 2 + 44);
+        for (var j = 0; j < n; j++) {
+          var r = minRx + (maxRx - minRx) * (j / Math.max(1, n - 1));
+          orbits.push([r, r * ratio]);
+        }
+      }
+      sys.geo = { cx: cx, cy: cy, left: rb.left, top: rb.top, bottom: rb.bottom, orbits: orbits };
     };
 
     sys.update = function (dt) {
       var g = sys.geo, near = false;
       sys.visible = g.bottom > 0 && g.top < window.innerHeight;
       sys.notes.forEach(function (n, i) {
-        var rx = g.radii[i];
-        n.vx = g.cx + Math.cos(n.a) * rx;
-        n.vy = g.cy + Math.sin(n.a) * rx * g.ratio;
+        var o = g.orbits[i];
+        n.vx = g.cx + Math.cos(n.a) * o[0];
+        n.vy = g.cy + Math.sin(n.a) * o[1];
         if (finePointer && Math.hypot(mx - n.vx, my - n.vy) < 150) near = true;
       });
       var target = reduce ? 0 : (sys.open ? 0 : (near ? 0.15 : 1));
@@ -351,8 +386,8 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
         var depth = (Math.sin(n.a) + 1) / 2;
         n.x = n.vx - g.left; n.y = n.vy - g.top;
         n.li.style.transform = "translate3d(" + n.x.toFixed(1) + "px," + n.y.toFixed(1) + "px,0)";
-        n.pin.style.transform = "scale(" + (0.7 + depth * 0.45).toFixed(3) + ")";
-        n.pin.style.opacity = (0.55 + depth * 0.45).toFixed(3);
+        n.pin.style.transform = "scale(" + (0.8 + depth * 0.3).toFixed(3) + ")";
+        n.pin.style.opacity = (0.7 + depth * 0.3).toFixed(3);
         var front = depth > 0.5;
         if (front !== n.front) { n.front = front; n.li.classList.toggle("is-front", front); }
       });
@@ -482,8 +517,9 @@ if (location.hash === "#work" && !document.querySelector("#work")) {
     systems.forEach(function (s) {
       if (!s.visible) return;
       var g = s.geo;
-      g.radii.forEach(function (rx) {
-        var ry = rx * g.ratio;
+      if (!s.rings) return;
+      g.orbits.forEach(function (o) {
+        var rx = o[0], ry = o[1];
         ctx.strokeStyle = "rgba(255,255,255,0.06)";
         ctx.beginPath(); ctx.ellipse(g.cx, g.cy, rx, ry, 0, Math.PI, Math.PI * 2); ctx.stroke();
         ctx.strokeStyle = "rgba(255,255,255,0.12)";
