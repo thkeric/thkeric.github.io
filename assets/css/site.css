@@ -109,13 +109,16 @@ strong { font-weight: 700; }
   text-decoration: none;
 }
 .project h2 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.03em; }
-.project .what { font-size: 20px; line-height: 1.45; color: var(--ink-2); margin: 14px 0 22px; max-width: 32ch; }
+.project > div:first-child { max-width: 460px; }
+.project .what { font-size: 20px; line-height: 1.45; color: var(--ink-2); margin: 14px 0 22px; }
+.project .what, .project .finding { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 .project .finding {
-  position: relative; padding-left: 40px; margin: 0 0 22px; max-width: 40ch; font-size: 17px; line-height: 1.5;
+  position: relative; padding-left: 40px; margin: 0 0 22px; font-size: 17px; line-height: 1.5;
 }
 .project .finding .pin { position: absolute; left: 4px; top: 0.42em; width: 14px; height: 14px; box-shadow: none; }
 .project .finding { padding-left: 32px; }
-.project .meta { font-size: 15px; color: var(--ink-3); margin: 0; }
+.project .meta { font-size: 15px; line-height: 1.55; color: var(--ink-3); margin: 0; }
+.project .meta span { white-space: nowrap; }
 .project .go { display: inline-block; margin-top: 20px; font-weight: 700; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 0.25em; }
 .project:hover .go { text-decoration-color: var(--pin); }
 
@@ -352,7 +355,7 @@ figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top:
   .results, .trace { font-size: 14.5px; }
   .results td:first-child { white-space: normal; }
   .timeline li { grid-template-columns: 1fr; gap: 2px; }
-  .about .bio p { text-align: left; }
+  .about .bio p, .project .what, .project .finding { text-align: left; }
   .row .screen, .row figure.shot { flex: 0 1 44%; }
   .callout { font-size: 19px; padding: 18px 20px; }
 }
