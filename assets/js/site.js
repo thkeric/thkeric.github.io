@@ -227,3 +227,192 @@
 if (location.hash === "#work" && !document.querySelector("#work")) {
   location.replace(new URL("work/", location.href.split("#")[0]).href);
 }
+
+// Home: the name fills the width, letters rise in on load and lift towards
+// the cursor; markers pop up short notes when the cursor comes near.
+(function () {
+  var root = document.querySelector(".intro");
+  if (!root) return;
+  var nameEl = root.querySelector(".intro-name");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var narrow = window.matchMedia("(max-width: 700px)");
+  var full = nameEl.getAttribute("data-name");
+  nameEl.setAttribute("aria-label", full);
+
+  // Build letters: one line on wide screens, "Tae Hyun / Kim" on narrow ones.
+  var letters = [];
+  function build() {
+    var lines = narrow.matches ? ["Tae Hyun", "Kim"] : [full];
+    nameEl.innerHTML = "";
+    letters = [];
+    lines.forEach(function (text) {
+      var line = document.createElement("span");
+      line.className = "nm-line";
+      line.setAttribute("aria-hidden", "true");
+      text.split("").forEach(function (c) {
+        if (c === " ") { var sp = document.createElement("span"); sp.className = "nm-sp"; line.appendChild(sp); return; }
+        var mask = document.createElement("span"); mask.className = "nm-mask";
+        var ch = document.createElement("span"); ch.className = "nm-ch"; ch.textContent = c;
+        mask.appendChild(ch); line.appendChild(mask);
+        letters.push({ el: ch, y: 0, ty: 0 });
+      });
+      nameEl.appendChild(line);
+    });
+    fit();
+  }
+  // Size the name so its longest line spans the content width.
+  function fit() {
+    nameEl.style.fontSize = "100px";
+    var widest = 0;
+    nameEl.querySelectorAll(".nm-line").forEach(function (l) {
+      var r = document.createRange(); r.selectNodeContents(l);
+      widest = Math.max(widest, r.getBoundingClientRect().width);
+    });
+    var avail = root.clientWidth;
+    var size = Math.min(avail / widest * 100, window.innerHeight * (narrow.matches ? 0.2 : 0.3));
+    nameEl.style.fontSize = size.toFixed(1) + "px";
+  }
+
+  function intro() {
+    if (reduce || !nameEl.animate) return;
+    letters.forEach(function (l, i) {
+      l.el.animate([{ transform: "translateY(105%)" }, { transform: "translateY(0)" }],
+        { duration: 900, delay: 120 + i * 45, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
+    });
+    root.querySelectorAll(".note-pin").forEach(function (p, i) {
+      p.animate([{ transform: "scale(0)" }, { transform: "scale(1)" }],
+        { duration: 500, delay: 900 + i * 110, easing: "cubic-bezier(.2,1.5,.3,1)", fill: "backwards" });
+    });
+  }
+
+  build();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  intro();
+  var resizeT;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function () { build(); place(open); }, 120);
+  });
+
+  // Letters lift slightly towards the cursor (transform only, so it stays smooth).
+  var mx = -9999, my = -9999, raf = 0, centres = null;
+  function measure() {
+    centres = letters.map(function (l) {
+      var r = l.el.parentNode.getBoundingClientRect();
+      return [r.left + r.width / 2, r.top + r.height / 2];
+    });
+  }
+  window.addEventListener("scroll", function () { centres = null; }, { passive: true });
+  window.addEventListener("resize", function () { centres = null; });
+  function tick() {
+    raf = 0;
+    var moving = false;
+    if (!centres) measure();
+    letters.forEach(function (l, i) {
+      var d = Math.hypot(mx - centres[i][0], my - centres[i][1]);
+      var f = Math.max(0, 1 - d / 280);
+      l.ty = -f * f * 0.12;
+      l.y += (l.ty - l.y) * 0.18;
+      if (Math.abs(l.ty - l.y) > 0.0005) moving = true;
+      l.el.style.transform = "translateY(" + l.y.toFixed(4) + "em)";
+    });
+    if (moving) raf = requestAnimationFrame(tick);
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+
+  // Notes
+  var notes = Array.prototype.slice.call(root.querySelectorAll(".note")).map(function (li, i) {
+    var pin = li.querySelector(".note-pin");
+    var card = li.querySelector(".note-card");
+    pin.style.setProperty("--d", (i * 0.45) + "s");
+    card.setAttribute("role", "note");
+    return { li: li, pin: pin, card: card };
+  });
+  var open = null, closeT = null, openedAt = 0;
+  function place(n) {
+    if (!n) return;
+    var rb = root.getBoundingClientRect();
+    var pb = n.pin.getBoundingClientRect();
+    var cw = n.card.offsetWidth, chh = n.card.offsetHeight;
+    var px = pb.left + pb.width / 2 - rb.left, py = pb.top + pb.height / 2 - rb.top;
+    var x = px + 24, y = py + 20;
+    if (x + cw > rb.width) x = px - 24 - cw;
+    if (x < 0) x = Math.max(0, Math.min(rb.width - cw, px - cw / 2));
+    var foot = root.querySelector(".intro-foot");
+    var limit = foot ? foot.getBoundingClientRect().top - rb.top - 8 : rb.height - 8;
+    if (y + chh > limit) y = py - 20 - chh;
+    if (y < 0) y = 8;
+    n.card.style.left = (x - (n.li.offsetLeft)) + "px";
+    n.card.style.top = (y - (n.li.offsetTop)) + "px";
+    n.card.style.transformOrigin = (px - x) + "px " + (py - y) + "px";
+  }
+  function show(n) {
+    clearTimeout(closeT);
+    if (open === n) return;
+    if (open) hide(open, true);
+    open = n;
+    place(n);
+    openedAt = Date.now();
+    n.card.classList.add("is-open");
+    n.pin.setAttribute("aria-expanded", "true");
+    if (!reduce && n.card.animate) {
+      n.card.animate([{ opacity: 0, transform: "scale(.6)" }, { opacity: 1, transform: "scale(1)" }],
+        { duration: 420, easing: "cubic-bezier(.2,1.25,.3,1)" });
+    }
+  }
+  function hide(n, instant) {
+    if (!n) return;
+    n.pin.setAttribute("aria-expanded", "false");
+    if (open === n) open = null;
+    if (!reduce && !instant && n.card.animate) {
+      var a = n.card.animate([{ opacity: 1, transform: "scale(1)" }, { opacity: 0, transform: "scale(.85)" }],
+        { duration: 160, easing: "ease-in" });
+      a.onfinish = function () { if (open !== n) n.card.classList.remove("is-open"); };
+    } else {
+      n.card.classList.remove("is-open");
+    }
+  }
+  function scheduleClose() {
+    clearTimeout(closeT);
+    closeT = setTimeout(function () { hide(open); }, 140);
+  }
+
+  notes.forEach(function (n) {
+    n.pin.addEventListener("click", function () {
+      // On touch, a tap focuses (opens) then clicks; don't let the click close it again.
+      if (open === n && !finePointer && Date.now() - openedAt > 350) hide(n);
+      else show(n);
+    });
+    n.pin.addEventListener("focus", function () { show(n); });
+    n.card.addEventListener("pointerenter", function () { clearTimeout(closeT); });
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") hide(open); });
+  document.addEventListener("click", function (e) {
+    if (open && !e.target.closest(".note")) hide(open);
+  });
+
+  var hint = root.querySelector(".intro-hint");
+  if (hint && !finePointer) hint.textContent = "Tap the markers";
+
+  if (finePointer) {
+    root.addEventListener("pointermove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!reduce) kick();
+      if (e.target.closest(".note-card")) { clearTimeout(closeT); return; }
+      var best = null, bestD = 120;
+      notes.forEach(function (n) {
+        var r = n.pin.getBoundingClientRect();
+        var d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+        if (d < bestD) { bestD = d; best = n; }
+      });
+      if (best) show(best);
+      else if (open) scheduleClose();
+    });
+    root.addEventListener("pointerleave", function () {
+      mx = my = -9999;
+      if (!reduce) kick();
+      if (open) scheduleClose();
+    });
+  }
+})();

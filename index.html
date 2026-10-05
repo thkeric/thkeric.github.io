@@ -11,10 +11,11 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=202610051533">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="assets/css/site.css?v=202610051547">
 </head>
-<body>
+<body class="home-dark">
 <a class="skip" href="#content">Skip to content</a>
 
 <header class="wrap site-head">
@@ -27,12 +28,36 @@
 </header>
 
 <main id="content">
-  <section class="wrap hero hero--home">
-    <h1 class="display"><span>I design from research,</span> <span>then test with users</span> <span>to find where it breaks.</span></h1>
-    <p class="lede"><span>Graduate product designer</span> <span>with an MSc in Design and Digital Media from the University of Edinburgh.</span> <span>Based in Seoul and ready to relocate.</span></p>
-    <div class="cta-row">
-      <a class="btn btn--primary" href="work/">View my work</a>
-      <a class="btn" href="about/">About me</a>
+  <section class="intro wrap" aria-label="Introduction">
+    <h1 class="intro-name" data-name="Tae Hyun Kim">Tae Hyun Kim</h1>
+    <ol class="notes" aria-label="About me">
+      <li class="note" style="--x:12%;--y:20%;--mx:12%;--my:16%">
+        <button class="note-pin" type="button" aria-expanded="false" aria-controls="note-1"><span class="sr-only">Note </span>1</button>
+        <div class="note-card" id="note-1"><p>I design from research, then test with users to find where it breaks.</p></div>
+      </li>
+      <li class="note" style="--x:52%;--y:13%;--mx:82%;--my:22%">
+        <button class="note-pin" type="button" aria-expanded="false" aria-controls="note-2"><span class="sr-only">Note </span>2</button>
+        <div class="note-card" id="note-2"><p>Graduate product designer with an MSc in Design and Digital Media from the University of Edinburgh.</p></div>
+      </li>
+      <li class="note" style="--x:88%;--y:25%;--mx:86%;--my:63%">
+        <button class="note-pin" type="button" aria-expanded="false" aria-controls="note-3"><span class="sr-only">Note </span>3</button>
+        <div class="note-card" id="note-3"><p>Based in Seoul and ready to relocate.</p></div>
+      </li>
+      <li class="note" style="--x:22%;--y:76%;--mx:14%;--my:70%">
+        <button class="note-pin" type="button" aria-expanded="false" aria-controls="note-4"><span class="sr-only">Note </span>4</button>
+        <div class="note-card" id="note-4"><p>Before design, I made training and promotional videos as a public affairs specialist in the Republic of Korea Army, watching how people reacted and refining each one.</p></div>
+      </li>
+      <li class="note" style="--x:70%;--y:78%;--mx:52%;--my:80%">
+        <button class="note-pin" type="button" aria-expanded="false" aria-controls="note-5"><span class="sr-only">Note </span>5</button>
+        <div class="note-card" id="note-5"><p>Three case studies: a bill-splitting finance app, a health app built in React Native, and a visual identity system.</p><a href="work/">View my work</a></div>
+      </li>
+    </ol>
+    <div class="intro-foot">
+      <p class="intro-hint" aria-hidden="true">Move your cursor near the markers</p>
+      <div class="cta-row">
+        <a class="btn btn--light" href="work/">View my work</a>
+        <a class="btn btn--ghost" href="about/">About me</a>
+      </div>
     </div>
   </section>
 </main>
@@ -41,6 +66,6 @@
   <span>© 2026 Tae Hyun Kim</span>
   <span class="foot-links"><a href="mailto:ericthk.ux@gmail.com">ericthk.ux@gmail.com</a><a href="https://www.linkedin.com/in/erickimux/" rel="me">LinkedIn</a></span>
 </footer>
-<script src="assets/js/site.js?v=202610051533" defer></script>
+<script src="assets/js/site.js?v=202610051547" defer></script>
 </body>
 </html>
