@@ -770,7 +770,7 @@ body.home-dark { background: #000; color: #e9ecf1; }
 .space-page .about-head { position: relative; z-index: 2; border-bottom-color: #1d2128; }
 .space-page .about-head h1 { color: #f1f3f5; }
 .space-page .about-intro .lede { color: #f1f3f5; }
-.space-page .portrait { background: #15181d; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 30px 60px -30px rgba(120, 140, 255, 0.35); }
+.space-page .portrait { background: transparent; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14); }
 .space-page .contact-links a { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.35); }
 .space-page .contact-links a:hover { text-decoration-color: var(--pin); }
 .space-page .about { position: relative; z-index: 2; }
