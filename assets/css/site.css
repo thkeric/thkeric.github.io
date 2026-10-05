@@ -155,7 +155,7 @@ strong { font-weight: 700; }
 
 .cs-head { padding-block: clamp(32px, 6vw, 72px) clamp(28px, 4vw, 48px); }
 .cs-head h1 { font-size: clamp(48px, 8vw, 104px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.98; margin-top: 18px; }
-.cs-head .lede { margin-top: 20px; max-width: 34ch; }
+.cs-head .lede { margin-top: 20px; max-width: none; }
 
 .facts {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px 28px;
